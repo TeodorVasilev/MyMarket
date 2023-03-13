@@ -1,0 +1,14 @@
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\obj\Debug\net6.0\MyMarket.DAL.csproj.AssemblyReference.cache
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\obj\Debug\net6.0\MyMarket.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\obj\Debug\net6.0\MyMarket.DAL.AssemblyInfoInputs.cache
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\obj\Debug\net6.0\MyMarket.DAL.AssemblyInfo.cs
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\obj\Debug\net6.0\MyMarket.DAL.csproj.CoreCompileInputs.cache
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\bin\Debug\net6.0\MyMarket.DAL.deps.json
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\bin\Debug\net6.0\MyMarket.DAL.runtimeconfig.json
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\bin\Debug\net6.0\MyMarket.DAL.dll
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\bin\Debug\net6.0\ref\MyMarket.DAL.dll
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\bin\Debug\net6.0\MyMarket.DAL.pdb
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\obj\Debug\net6.0\MyMarket.DAL.dll
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\obj\Debug\net6.0\ref\MyMarket.DAL.dll
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\obj\Debug\net6.0\MyMarket.DAL.pdb
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\obj\Debug\net6.0\MyMarket.DAL.genruntimeconfig.cache

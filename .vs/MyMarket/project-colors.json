@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "991a492c-a00a-481e-98eb-82542feb7639": {
+      "ProjectGuid": "991a492c-a00a-481e-98eb-82542feb7639",
+      "DisplayName": "MyMarket",
+      "ColorIndex": 0
+    },
+    "7960efc5-59c6-4aed-bfa2-ccbfb05c8d40": {
+      "ProjectGuid": "7960efc5-59c6-4aed-bfa2-ccbfb05c8d40",
+      "DisplayName": "MyMarket.DAL",
+      "ColorIndex": 1
+    },
+    "8578ef92-829d-460d-81b1-59580c8ff055": {
+      "ProjectGuid": "8578ef92-829d-460d-81b1-59580c8ff055",
+      "DisplayName": "MyMarket.Service",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}

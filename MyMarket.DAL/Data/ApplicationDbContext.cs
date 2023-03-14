@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MyMarket.DAL.Models.Account;
+using MyMarket.DAL.Models.Listings;
 
 namespace MyMarket.DAL.Data
 {
@@ -15,6 +17,13 @@ namespace MyMarket.DAL.Data
         {
         }
 
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<Listing> Listings { get; set; }
+        public DbSet<Category> Categories { get; set; }
+        public DbSet<Option> Options { get; set; }
+        public DbSet<Property> Properties { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -26,6 +35,11 @@ namespace MyMarket.DAL.Data
                 string connectionString = configuration.GetConnectionString("DefaultConnection");
                 optionsBuilder.UseSqlServer(connectionString);
             }
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
         }
     }
 }

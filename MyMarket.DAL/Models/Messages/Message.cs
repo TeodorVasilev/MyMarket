@@ -12,5 +12,7 @@ namespace MyMarket.DAL.Models.Messages
         public virtual User Sender { get; set; }
         public string RecipientId { get; set; }
         public virtual User Recipient { get; set; }
+        public int ConversationId { get; set; }
+        public virtual Conversation Conversation{ get; set; }
     }
 }

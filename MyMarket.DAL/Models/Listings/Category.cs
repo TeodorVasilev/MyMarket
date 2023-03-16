@@ -8,5 +8,6 @@
         public virtual Category Parent { get; set; }
         public virtual ICollection<Category> Children { get; set; }
         public virtual ICollection<Option> Options { get; set; }
+        public virtual ICollection<Listing> Listings { get; set; }
     }
 }

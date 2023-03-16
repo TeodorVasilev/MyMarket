@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using MyMarket.DAL.Configuration;
 using MyMarket.DAL.Models.Account;
+using MyMarket.DAL.Models.Images;
 using MyMarket.DAL.Models.Listings;
+using MyMarket.DAL.Models.Messages;
 
 namespace MyMarket.DAL.Data
 {
@@ -23,6 +26,9 @@ namespace MyMarket.DAL.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Option> Options { get; set; }
         public DbSet<Property> Properties { get; set; }
+        public DbSet<Image> Images { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Conversation> Conversations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -40,6 +46,11 @@ namespace MyMarket.DAL.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new ListingConfiguration());
+            builder.ApplyConfiguration(new OptionConfiguration());
+            builder.ApplyConfiguration(new ConversationConfiguration());
         }
     }
 }

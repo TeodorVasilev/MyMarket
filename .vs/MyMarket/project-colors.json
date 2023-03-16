@@ -15,7 +15,17 @@
       "ProjectGuid": "8578ef92-829d-460d-81b1-59580c8ff055",
       "DisplayName": "MyMarket.Service",
       "ColorIndex": 2
+    },
+    "9db9ee19-356c-40df-9388-3de16983d560": {
+      "ProjectGuid": "9db9ee19-356c-40df-9388-3de16983d560",
+      "DisplayName": "Test",
+      "ColorIndex": 3
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
     }
   },
-  "NextColorIndex": 3
+  "NextColorIndex": 4
 }

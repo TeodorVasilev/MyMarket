@@ -1,4 +1,5 @@
 ﻿using MyMarket.DAL.Data;
+using MyMarket.DAL.Models.Listings;
 using ScrapySharp.Extensions;
 using ScrapySharp.Network;
 using System.Text;
@@ -66,10 +67,32 @@ for (int i = 0; i < categoriesHtml.ChildNodes.Count; i++)
     }
 }
 
-using(var context = new ApplicationDbContext())
-{
+//using (var context = new ApplicationDbContext())
+//{
+//    foreach (var kvp in categorySubCategories)
+//    {
+//        var category = new Category() { Name = kvp.Key, ParentId = null };
+//        context.Categories.Add(category);
+//        context.SaveChanges();
 
-}
+//        foreach (var subKvp in kvp.Value)
+//        {
+//            var subCategory = new Category() { Name = subKvp.Key, ParentId = category.Id };
+//            context.Categories.Add(subCategory);
+//            context.SaveChanges();
+
+//            if (subKvp.Value.Count > 0)
+//            {
+//                foreach (var subValue in subKvp.Value)
+//                {
+//                    var subSubCategory = new Category() { Name = subValue, ParentId = subCategory.Id };
+//                    context.Categories.Add(subSubCategory);
+//                    context.SaveChanges();
+//                }
+//            }
+//        }
+//    }
+//}
 
 //foreach (var kvp in categorySubCategories)
 //{
@@ -79,7 +102,7 @@ using(var context = new ApplicationDbContext())
 //    {
 //        Console.WriteLine($"-- {subKvp.Key}");
 
-//        if(subKvp.Value.Count > 0)
+//        if (subKvp.Value.Count > 0)
 //        {
 //            foreach (var subSubKvp in subKvp.Value)
 //            {
@@ -89,4 +112,4 @@ using(var context = new ApplicationDbContext())
 //    }
 //}
 
-Console.WriteLine();
+///Console.WriteLine();

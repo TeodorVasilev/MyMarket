@@ -5,7 +5,6 @@ using MyMarket.DAL.Configuration;
 using MyMarket.DAL.Models.Account;
 using MyMarket.DAL.Models.Images;
 using MyMarket.DAL.Models.Listings;
-using MyMarket.DAL.Models.Messages;
 
 namespace MyMarket.DAL.Data
 {
@@ -27,21 +26,28 @@ namespace MyMarket.DAL.Data
         public DbSet<Option> Options { get; set; }
         public DbSet<Property> Properties { get; set; }
         public DbSet<Image> Images { get; set; }
-        public DbSet<Message> Messages { get; set; }
-        public DbSet<Conversation> Conversations { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                IConfigurationRoot configuration = new ConfigurationBuilder()
-                    .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../MyMarket"))
-                    .AddJsonFile("appsettings.json")
-                    .Build();
-                string connectionString = configuration.GetConnectionString("DefaultConnection");
+                string connectionString = "Server=.;Database=MyMarketDatabase;Trusted_Connection=True;";
                 optionsBuilder.UseSqlServer(connectionString);
             }
         }
+
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    if (!optionsBuilder.IsConfigured)
+        //    {
+        //        IConfigurationRoot configuration = new ConfigurationBuilder()
+        //            .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../MyMarket"))
+        //            .AddJsonFile("appsettings.json")
+        //            .Build();
+        //        string connectionString = configuration.GetConnectionString("DefaultConnection");
+        //        optionsBuilder.UseSqlServer(connectionString);
+        //    }
+        //}
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -50,7 +56,6 @@ namespace MyMarket.DAL.Data
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new ListingConfiguration());
             builder.ApplyConfiguration(new OptionConfiguration());
-            builder.ApplyConfiguration(new ConversationConfiguration());
         }
     }
 }

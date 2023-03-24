@@ -12,7 +12,9 @@ namespace MyMarket.DAL.Configuration
 
             builder.HasMany(c => c.Children)
                 .WithOne(c => c.Parent)
-                .HasForeignKey(c => c.ParentId);
+                .HasForeignKey(c => c.ParentId)
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

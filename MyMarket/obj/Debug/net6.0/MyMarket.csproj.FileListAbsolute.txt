@@ -68,3 +68,4 @@ C:\Users\npc13\Desktop\MyMarket\MyMarket\obj\Debug\net6.0\MyMarket.pdb
 C:\Users\npc13\Desktop\MyMarket\MyMarket\obj\Debug\net6.0\MyMarket.genruntimeconfig.cache
 C:\Users\npc13\Desktop\MyMarket\MyMarket\bin\Debug\net6.0\MyMarket.DAL.dll
 C:\Users\npc13\Desktop\MyMarket\MyMarket\bin\Debug\net6.0\MyMarket.DAL.pdb
+C:\Users\npc13\Desktop\MyMarket\MyMarket\obj\Debug\net6.0\MyMarket.MvcApplicationPartsAssemblyInfo.cs

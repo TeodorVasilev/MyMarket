@@ -1,6 +1,4 @@
-﻿using MyMarket.DAL.Data;
-using MyMarket.DAL.Models.Listings;
-using ScrapySharp.Extensions;
+﻿using ScrapySharp.Extensions;
 using ScrapySharp.Network;
 using System.Text;
 

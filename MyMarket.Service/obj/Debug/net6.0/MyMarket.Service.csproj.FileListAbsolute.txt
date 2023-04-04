@@ -2,7 +2,6 @@ C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\bin\Debug\net6.0\MyMarket.Servi
 C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\bin\Debug\net6.0\MyMarket.Service.dll
 C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\bin\Debug\net6.0\ref\MyMarket.Service.dll
 C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\bin\Debug\net6.0\MyMarket.Service.pdb
-C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\obj\Debug\net6.0\MyMarket.Service.csproj.AssemblyReference.cache
 C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\obj\Debug\net6.0\MyMarket.Service.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\obj\Debug\net6.0\MyMarket.Service.AssemblyInfoInputs.cache
 C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\obj\Debug\net6.0\MyMarket.Service.AssemblyInfo.cs
@@ -10,3 +9,7 @@ C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\obj\Debug\net6.0\MyMarket.Servi
 C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\obj\Debug\net6.0\MyMarket.Service.dll
 C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\obj\Debug\net6.0\ref\MyMarket.Service.dll
 C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\obj\Debug\net6.0\MyMarket.Service.pdb
+C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\bin\Debug\net6.0\MyMarket.DAL.dll
+C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\bin\Debug\net6.0\MyMarket.DAL.pdb
+C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\obj\Debug\net6.0\MyMarket.Service.csproj.AssemblyReference.cache
+C:\Users\npc13\Desktop\MyMarket\MyMarket.Service\obj\Debug\net6.0\MyMarket.Service.csproj.CopyComplete

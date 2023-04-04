@@ -11,3 +11,4 @@ C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\obj\Debug\net6.0\MyMarket.DAL.dll
 C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\obj\Debug\net6.0\ref\MyMarket.DAL.dll
 C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\obj\Debug\net6.0\MyMarket.DAL.pdb
 C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\obj\Debug\net6.0\MyMarket.DAL.genruntimeconfig.cache
+C:\Users\npc13\Desktop\MyMarket\MyMarket.DAL\obj\Debug\net6.0\MyMarket.DAL.csproj.AssemblyReference.cache

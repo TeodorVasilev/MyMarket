@@ -10,5 +10,7 @@
         public int PropertyId { get; set; }
         public virtual Listing Listing { get; set; }
         public int ListingId { get; set; }
+        public virtual ICollection<PropertyOption> PropertyOptions { get; set; }
+
     }
 }

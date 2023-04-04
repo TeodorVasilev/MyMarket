@@ -1,6 +1,11 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyMarket.DAL.Data;
+using MyMarket.DAL.Mappings;
+using MyMarket.Service.CategoryService;
+using MyMarket.Service.MappingService;
+using MyMarket.Service.PageService.Home;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +18,20 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddScoped<IMapper>(sp =>
+{
+    var config = new MapperConfiguration(cfg =>
+    {
+        cfg.AddProfile(new MappingProfile());
+    });
+
+    return config.CreateMapper();
+});
+builder.Services.AddScoped<IMappingService, MappingService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<IHomeService, HomeService>();
 
 var app = builder.Build();
 

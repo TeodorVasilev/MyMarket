@@ -69,3 +69,7 @@ C:\Users\npc13\Desktop\MyMarket\MyMarket\obj\Debug\net6.0\MyMarket.genruntimecon
 C:\Users\npc13\Desktop\MyMarket\MyMarket\bin\Debug\net6.0\MyMarket.DAL.dll
 C:\Users\npc13\Desktop\MyMarket\MyMarket\bin\Debug\net6.0\MyMarket.DAL.pdb
 C:\Users\npc13\Desktop\MyMarket\MyMarket\obj\Debug\net6.0\MyMarket.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\npc13\Desktop\MyMarket\MyMarket\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\npc13\Desktop\MyMarket\MyMarket\bin\Debug\net6.0\MyMarket.Service.dll
+C:\Users\npc13\Desktop\MyMarket\MyMarket\bin\Debug\net6.0\MyMarket.Service.pdb
+C:\Users\npc13\Desktop\MyMarket\MyMarket\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

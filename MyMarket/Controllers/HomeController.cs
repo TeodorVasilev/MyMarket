@@ -1,26 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyMarket.DAL.Models;
+using MyMarket.Service.PageService.Home;
 using System.Diagnostics;
 
 namespace MyMarket.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IHomeService _homeService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IHomeService homeService)
         {
-            _logger = logger;
+            this._homeService = homeService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
 
-        public IActionResult Privacy()
-        {
-            return View();
+            return View(await this._homeService.LoadHome());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

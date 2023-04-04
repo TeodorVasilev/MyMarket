@@ -12,8 +12,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyMarket.DAL", "MyMarket.DAL\MyMarket.DAL.csproj", "{7960EFC5-59C6-4AED-BFA2-CCBFB05C8D40}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyMarket.Service", "MyMarket.Service\MyMarket.Service.csproj", "{8578EF92-829D-460D-81B1-59580C8FF055}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7960EFC5-59C6-4AED-BFA2-CCBFB05C8D40} = {7960EFC5-59C6-4AED-BFA2-CCBFB05C8D40}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{9DB9EE19-356C-40DF-9388-3DE16983D560}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Test", "Test\Test.csproj", "{9DB9EE19-356C-40DF-9388-3DE16983D560}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

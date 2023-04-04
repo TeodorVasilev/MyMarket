@@ -1,8 +1,15 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@using MyMarket.DAL.ViewModels.Pages.Home
+@model HomeViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container border">
+    <div class="row">
+        @foreach (var category in @Model.Categories.Where(c => c.ParentId == 0))
+        {
+            <div class="col-md-3 col-3">
+                <div>@category.Name</div>
+            </div>
+        }
+    </div>
+</div>
+<div>
 </div>

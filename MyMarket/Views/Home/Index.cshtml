@@ -5,11 +5,35 @@
     <div class="row">
         @foreach (var category in @Model.Categories.Where(c => c.ParentId == 0))
         {
-            <div class="col-md-3 col-3">
-                <div>@category.Name</div>
+            <div class="col-md-3 col-3 main-category p-1">
+                <a href="/" class="text-center text-decoration-none">
+                    <div>@category.Name</div>
+                </a>
             </div>
         }
     </div>
 </div>
-<div>
+<div style="height: 500px" class="container">
+    listings container
+</div>
+<div class="container lightblue">
+    <div class="row">
+        @for (int i = 1; i <= Model.Categories.Count / 3; i++)
+        {
+            var parentCategories = Model.Categories.Where(c => c.ParentId == 0).Skip((i - 1) * 3).Take(3);
+
+            <div class="col-3">
+                <ul class="categories-list">
+                    @foreach (var parentCat in parentCategories)
+                    {
+                        <li class="parent-category"><a href="/">@parentCat.Name</a></li>
+                        @foreach (var child in parentCat.Children)
+                        {
+                            <li class="child-category"><a href="/">@child.Name</a></li>
+                        }
+                    }
+                </ul>
+            </div>
+        }
+    </div>
 </div>

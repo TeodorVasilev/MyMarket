@@ -74,3 +74,4 @@ C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\runtimes\win\lib\netstanda
 C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
 C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\MyMarket.DAL.dll
 C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\MyMarket.DAL.pdb
+C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\AutoMapper.dll

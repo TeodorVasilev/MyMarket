@@ -374,6 +374,29 @@ namespace MyMarket.DAL.Migrations
                     b.ToTable("Properties");
                 });
 
+            modelBuilder.Entity("MyMarket.DAL.Models.Listings.PropertyOption", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("OptionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OptionId");
+
+                    b.HasIndex("PropertyId");
+
+                    b.ToTable("PropertyOption");
+                });
+
             modelBuilder.Entity("MyMarket.DAL.Models.Account.Role", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
@@ -506,6 +529,25 @@ namespace MyMarket.DAL.Migrations
                     b.Navigation("Property");
                 });
 
+            modelBuilder.Entity("MyMarket.DAL.Models.Listings.PropertyOption", b =>
+                {
+                    b.HasOne("MyMarket.DAL.Models.Listings.Option", "Option")
+                        .WithMany("PropertyOptions")
+                        .HasForeignKey("OptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyMarket.DAL.Models.Listings.Property", "Property")
+                        .WithMany("PropertyOptions")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Option");
+
+                    b.Navigation("Property");
+                });
+
             modelBuilder.Entity("MyMarket.DAL.Models.Listings.Category", b =>
                 {
                     b.Navigation("Children");
@@ -522,9 +564,16 @@ namespace MyMarket.DAL.Migrations
                     b.Navigation("Options");
                 });
 
+            modelBuilder.Entity("MyMarket.DAL.Models.Listings.Option", b =>
+                {
+                    b.Navigation("PropertyOptions");
+                });
+
             modelBuilder.Entity("MyMarket.DAL.Models.Listings.Property", b =>
                 {
                     b.Navigation("Options");
+
+                    b.Navigation("PropertyOptions");
                 });
 
             modelBuilder.Entity("MyMarket.DAL.Models.Account.User", b =>

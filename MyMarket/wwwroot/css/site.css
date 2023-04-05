@@ -50,6 +50,35 @@
 }
 /* SEARCH END */
 
+
+/*BOTTOM CATEGORIES LIST*/
+.categories-list{
+    list-style-type: none;
+}
+
+.parent-category{
+    margin: 0.8rem 0;
+}
+
+.parent-category a{
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.parent-category a:hover{
+    color: var(--secondary-color);
+}
+
+.child-category a{
+    text-decoration: none;
+}
+
+.child-category a:hover {
+    color: var(--secondary-color);
+}
+
+/*BOTTOM CATEGORIES LIST END*/
 @media only screen and (min-width: 558px) and (max-width: 778px) {
     .main-btn {
         display: inline-block;

@@ -1,8 +1,8 @@
 ﻿@using MyMarket.DAL.ViewModels.Pages.Home
 @model HomeViewModel
 
-<div class="container border">
-    <div class="row">
+<div class="">
+    <div class="row border">
         @foreach (var category in @Model.Categories.Where(c => c.ParentId == 0))
         {
             <div class="col-md-3 col-3 main-category p-1">
@@ -13,10 +13,10 @@
         }
     </div>
 </div>
-<div style="height: 500px" class="container">
+<div style="height: 500px">
     listings container
 </div>
-<div class="container lightblue">
+<div class="lightblue">
     <div class="row">
         @for (int i = 1; i <= Model.Categories.Count / 3; i++)
         {

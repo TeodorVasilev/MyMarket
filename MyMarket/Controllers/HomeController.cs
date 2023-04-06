@@ -16,7 +16,6 @@ namespace MyMarket.Controllers
 
         public async Task<IActionResult> Index()
         {
-
             return View(await this._homeService.LoadHome());
         }
 

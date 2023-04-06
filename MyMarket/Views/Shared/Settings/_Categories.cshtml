@@ -1,0 +1,22 @@
+﻿@using MyMarket.DAL.ViewModels.Listings
+@model List<CategoryViewModel>
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Име</th>
+            <th>Основна категория</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in @Model)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.Name</td>
+                <td>@category.ParentCategory</td>
+            </tr>
+        }
+    </tbody>
+</table>

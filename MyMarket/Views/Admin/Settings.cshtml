@@ -1,0 +1,12 @@
+﻿@using MyMarket.DAL.ViewModels.Listings
+@model List<CategoryViewModel>
+
+<div class="btn-group" role="group">
+    <a class="btn btn-primary category-link" href="/" data-url="Shared/Settings/_Categories">Categories</a>
+    <a class="btn btn-primary" href="@Url.Action("Settings", "Properties")">Properties</a>
+    <a class="btn btn-primary" href="@Url.Action("Settings", "Options")">Options</a>
+    <a class="btn btn-primary" href="@Url.Action("Settings", "Home")">Home</a>
+</div>
+<div id="partial-container">
+    @{Html.RenderPartial("~/Views/Shared/Settings/_Categories.cshtml", @Model);}
+</div>

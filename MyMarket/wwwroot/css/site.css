@@ -17,6 +17,10 @@
         color: var(--secondary-color);
     }
 
+    .logo a{
+        text-decoration: none;
+    }
+
 /* LOGO END */
 
 .fav {

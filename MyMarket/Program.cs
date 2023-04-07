@@ -4,8 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using MyMarket.DAL.Data;
 using MyMarket.DAL.Mappings;
 using MyMarket.Service.CategoryService;
+using MyMarket.Service.ListingService;
 using MyMarket.Service.MappingService;
 using MyMarket.Service.PageService.Home;
+using MyMarket.Service.SearchService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +35,8 @@ builder.Services.AddScoped<IMapper>(sp =>
 builder.Services.AddScoped<IMappingService, MappingService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
+builder.Services.AddScoped<IListingService, ListingService>();
+builder.Services.AddScoped<ISearchService, SearchService>();
 builder.Services.AddScoped<RoleManager<IdentityRole>>();
 
 var app = builder.Build();

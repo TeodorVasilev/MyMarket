@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyMarket.DAL.ViewModels.Listings;
 using MyMarket.Service.CategoryService;
 
 namespace MyMarket.Controllers
@@ -8,11 +9,10 @@ namespace MyMarket.Controllers
     public class AdminController : Controller
     {
         private readonly ICategoryService _categoryService;
-        public AdminController(CategoryService categoryService)
+        public AdminController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
-
 
         public IActionResult Index()
         {
@@ -22,6 +22,18 @@ namespace MyMarket.Controllers
         public IActionResult Settings()
         {
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Categories()
+        {
+            return PartialView("~/Views/Shared/Settings/_Categories.cshtml", await this._categoryService.GetCategoryViewModels());
+        }
+
+        [HttpPost]
+        public IActionResult Categories(List<CategoryViewModel> categories)
+        {
+            return PartialView("~/Views/Shared/Settings/_Categories.cshtml", categories);
         }
     }
 }

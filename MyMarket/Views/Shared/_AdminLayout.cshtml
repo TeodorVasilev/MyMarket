@@ -26,7 +26,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-controller="Announcements" asp-action="Index">Обяви</a>
                         </li>
-                         <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link text-light" asp-controller="Admin" asp-action="Settings">Настройки</a>
                         </li>
                     </ul>
@@ -53,16 +53,45 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
-    $(document).ready(function () {
-        $(".category-link").click(function (e) {
-            e.preventDefault();
-            console.log(3);
-            var url = $(this).data("url");
-            $.get(url, function (data) {
-                $("#partial-container").html(data);
+        $(function () {
+            $('.category-link').on('click', function(e) {
+                e.preventDefault();
+                var url = $(this).data('url');
+                $('#partial-container').load(url);
             });
         });
-    });
-</script>
+
+        $(function () {
+          $('body').on('submit', '#search', function (e) {
+            e.preventDefault();
+
+            var term = $('#search-term').val();
+            var type = $('#search-type').val();
+
+            $.ajax({
+              url: `/search/search?searchType=${type}`,
+              method: 'POST',
+              data: { term: term,
+                      type: type},
+              success: function (data) {
+                $.ajax({
+                  url: `/admin/${type}`,
+                  method: 'POST',
+                  data: { categories: data },
+                  success: function (partialView) {
+                    $('#partial-container').html(partialView);
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                  }
+                });
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+                console.log(textStatus);
+              }
+            });
+          });
+        });
+    </script>
 </body>
 </html>

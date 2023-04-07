@@ -1,22 +1,61 @@
 ﻿@using MyMarket.DAL.ViewModels.Listings
 @model List<CategoryViewModel>
 
-<table>
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Име</th>
-            <th>Основна категория</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var category in @Model)
-        {
-            <tr>
-                <td>@category.Id</td>
-                <td>@category.Name</td>
-                <td>@category.ParentCategory</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="row">
+    <div class="col-md-9">
+        <div class="input-group my-2">
+            <form id="search" action="@Url.Action("Search", "Search")">
+                <input type="hidden" id="search-type" value="categories" />
+                <input type="text" id="search-term" name="term" class="form-control" placeholder="Търсене...">
+                <div class="input-group-append">
+                    <input  class="btn btn-primary ms-4" type="submit"></input>
+                </div>
+            </form>
+        </div>
+        <div class="row" style="height: calc(100vh - 150px); overflow-y: scroll;">
+            <div class="col">
+                <table class="table table-striped table-sm text-center">
+                    <thead class="sticky-top bg-white">
+                        <tr>
+                            <th>ID</th>
+                            <th>Име</th>
+                            <th>Основна категория</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var category in @Model)
+                        {
+                            <tr>
+                                <td>@category.Id</td>
+                                <td>@category.Name</td>
+                                <td>@category.ParentName</td>
+                                <td>
+                                    <a class="btn btn-sm btn-warning" href="#">Edit</a>
+                                    <a class="btn btn-sm btn-danger" href="#">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <h4>Създаване на нова категория</h4>
+        <form>
+            <div class="form-group">
+                <label for="categoryName">Име</label>
+                <input type="text" class="form-control" id="categoryName">
+            </div>
+            <div class="form-group">
+                <label for="parentCategory">Основна категория</label>
+                <select class="form-control" id="parentCategory">
+                    <option value="">-- Select a category --</option>
+                    <!-- Code to populate the options with categories -->
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Create</button>
+        </form>
+    </div>
+</div>

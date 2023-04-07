@@ -1,4 +1,5 @@
 ﻿using MyMarket.DAL.Models.Listings;
+using MyMarket.DAL.ViewModels.Listings;
 
 namespace MyMarket.Service.CategoryService
 {
@@ -6,5 +7,6 @@ namespace MyMarket.Service.CategoryService
     {
         Task<Category> GetCategoryById(int id);
         Task<List<Category>> GetCategories();
+        Task<List<CategoryViewModel>> GetCategoryViewModels();
     }
 }

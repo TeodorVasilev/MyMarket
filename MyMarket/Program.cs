@@ -7,6 +7,7 @@ using MyMarket.Service.CategoryService;
 using MyMarket.Service.ListingService;
 using MyMarket.Service.MappingService;
 using MyMarket.Service.PageService.Home;
+using MyMarket.Service.PropertyService;
 using MyMarket.Service.SearchService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -37,21 +38,10 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
 builder.Services.AddScoped<IListingService, ListingService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
+builder.Services.AddScoped<IPropertyService, PropertyService>();
 builder.Services.AddScoped<RoleManager<IdentityRole>>();
 
 var app = builder.Build();
-
-//
-//var serviceProvider = builder.Services.BuildServiceProvider();
-//var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-
-//var adminRoleExists = await roleManager.RoleExistsAsync("User");
-//if (!adminRoleExists)
-//{
-//    var adminRole = new IdentityRole("User");
-//    await roleManager.CreateAsync(adminRole);
-//}
-//
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

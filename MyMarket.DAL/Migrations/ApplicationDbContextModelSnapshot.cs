@@ -402,6 +402,22 @@ namespace MyMarket.DAL.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
 
                     b.HasDiscriminator().HasValue("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "b353b2d5-adbe-48d4-a349-8c9f3200d55b",
+                            ConcurrencyStamp = "e39bc376-960b-44fd-b9f1-38ef72afb3b2",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "71b7669d-9140-4c8c-be57-a030c0a0c305",
+                            ConcurrencyStamp = "b13f1085-a39a-4980-bcaf-0291659235f0",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("MyMarket.DAL.Models.Account.User", b =>

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using MyMarket.DAL.Configuration;
 using MyMarket.DAL.Models.Account;
 using MyMarket.DAL.Models.Images;
@@ -52,6 +51,21 @@ namespace MyMarket.DAL.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
+            //builder.Entity<Role>().HasData(
+            //    new Role
+            //    {
+            //        Id = Guid.NewGuid().ToString(),
+            //        Name = "User",
+            //        NormalizedName="USER",
+            //    },
+            //    new Role
+            //    {
+            //        Id = Guid.NewGuid().ToString(),
+            //        Name = "Admin",
+            //        NormalizedName="ADMIN",
+            //    }
+            //);
 
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new ListingConfiguration());

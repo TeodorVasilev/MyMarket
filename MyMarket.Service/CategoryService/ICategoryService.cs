@@ -8,5 +8,9 @@ namespace MyMarket.Service.CategoryService
         Task<Category> GetCategoryById(int id);
         Task<List<Category>> GetCategories();
         Task<List<CategoryViewModel>> GetCategoryViewModels();
+        Task<CategoryViewModel> GetCategoryViewModel(int id);
+        Task Create(CategoryViewModel formData);
+        Task Update(CategoryViewModel formData);
+        Task Delete(int id);
     }
 }

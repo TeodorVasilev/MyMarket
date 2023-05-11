@@ -9,6 +9,7 @@ namespace MyMarket.DAL.Mappings
         public MappingProfile()
         {
             CreateMap<Category, CategoryViewModel>();
+            CreateMap<Property, PropertyViewModel>();
         }
 
         public static IMapper Initialize()

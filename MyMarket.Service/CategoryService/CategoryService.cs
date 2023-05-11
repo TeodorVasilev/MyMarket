@@ -31,5 +31,46 @@ namespace MyMarket.Service.CategoryService
             var categories = await this.GetCategories();
             return this._mappingService.Map<List<Category>, List<CategoryViewModel>>(categories);
         }
+
+        public async Task<CategoryViewModel> GetCategoryViewModel(int id)
+        {
+            var category = await this.GetCategoryById(id);
+            return this._mappingService.Map<Category, CategoryViewModel>(category);
+        }
+
+        public async Task Create(CategoryViewModel formData)
+        {
+            var category = new Category()
+            {
+                Name = formData.Name,
+                ParentId = formData.ParentId,
+            };
+
+            await _context.Categories.AddAsync(category);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task Update(CategoryViewModel formData)
+        {
+            var category = await this.GetCategoryById(formData.Id);
+
+            if(formData.Name != category.Name)
+            {
+                category.Name = formData.Name;
+            }
+            if(formData.ParentId != category.ParentId)
+            {
+                category.ParentId = formData.ParentId;
+            }
+
+            await this._context.SaveChangesAsync();
+        }
+
+        public async Task Delete(int id)
+        {
+            var category = await this.GetCategoryById(id);
+            this._context.Categories.Remove(category);
+            await this._context.SaveChangesAsync();
+        }
     }
 }

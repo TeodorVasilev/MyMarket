@@ -25,8 +25,8 @@ namespace MyMarket.Controllers
                 default:
                     throw new ArgumentException("Invalid search type", nameof(formData.Type));
             }
-
-            return RedirectToAction("Categories", "Admin");
+            //
+            return RedirectToAction("Categories", "Category");
         }
     }
 }

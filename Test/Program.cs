@@ -1,4 +1,6 @@
-﻿using ScrapySharp.Extensions;
+﻿using MyMarket.DAL.Data;
+using MyMarket.DAL.Models.Listings;
+using ScrapySharp.Extensions;
 using ScrapySharp.Network;
 using System.Text;
 
@@ -65,49 +67,49 @@ for (int i = 0; i < categoriesHtml.ChildNodes.Count; i++)
     }
 }
 
-//using (var context = new ApplicationDbContext())
-//{
-//    foreach (var kvp in categorySubCategories)
-//    {
-//        var category = new Category() { Name = kvp.Key, ParentId = null };
-//        context.Categories.Add(category);
-//        context.SaveChanges();
+using (var context = new ApplicationDbContext())
+{
+    foreach (var kvp in categorySubCategories)
+    {
+        var category = new Category() { Name = kvp.Key, ParentId = null };
+        context.Categories.Add(category);
+        context.SaveChanges();
 
-//        foreach (var subKvp in kvp.Value)
-//        {
-//            var subCategory = new Category() { Name = subKvp.Key, ParentId = category.Id };
-//            context.Categories.Add(subCategory);
-//            context.SaveChanges();
+        foreach (var subKvp in kvp.Value)
+        {
+            var subCategory = new Category() { Name = subKvp.Key, ParentId = category.Id };
+            context.Categories.Add(subCategory);
+            context.SaveChanges();
 
-//            if (subKvp.Value.Count > 0)
-//            {
-//                foreach (var subValue in subKvp.Value)
-//                {
-//                    var subSubCategory = new Category() { Name = subValue, ParentId = subCategory.Id };
-//                    context.Categories.Add(subSubCategory);
-//                    context.SaveChanges();
-//                }
-//            }
-//        }
-//    }
-//}
+            if (subKvp.Value.Count > 0)
+            {
+                foreach (var subValue in subKvp.Value)
+                {
+                    var subSubCategory = new Category() { Name = subValue, ParentId = subCategory.Id };
+                    context.Categories.Add(subSubCategory);
+                    context.SaveChanges();
+                }
+            }
+        }
+    }
+}
 
-//foreach (var kvp in categorySubCategories)
-//{
-//    Console.WriteLine(kvp.Key);
+foreach (var kvp in categorySubCategories)
+{
+    Console.WriteLine(kvp.Key);
 
-//    foreach (var subKvp in kvp.Value)
-//    {
-//        Console.WriteLine($"-- {subKvp.Key}");
+    foreach (var subKvp in kvp.Value)
+    {
+        Console.WriteLine($"-- {subKvp.Key}");
 
-//        if (subKvp.Value.Count > 0)
-//        {
-//            foreach (var subSubKvp in subKvp.Value)
-//            {
-//                Console.WriteLine($"---- {subSubKvp}");
-//            }
-//        }
-//    }
-//}
+        if (subKvp.Value.Count > 0)
+        {
+            foreach (var subSubKvp in subKvp.Value)
+            {
+                Console.WriteLine($"---- {subSubKvp}");
+            }
+        }
+    }
+}
 
-///Console.WriteLine();
+Console.WriteLine();

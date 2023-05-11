@@ -5,7 +5,7 @@
 <ul class="nav nav-pills flex-column">
     @if (User.IsInRole("Admin"))
     {
-        <li class="nav-item"><a class="nav-link" asp-controller="Admin" asp-action="Index" id="admin">Admin</a></li>
+        <li class="nav-item"><a class="nav-link" href="/Admin/Index" id="admin">Admin</a></li>
     }
     <li class="nav-item"><a class="nav-link @ManageNavPages.IndexNavClass(ViewContext)" id="profile" asp-page="./Index">Profile</a></li>
     <li class="nav-item"><a class="nav-link @ManageNavPages.EmailNavClass(ViewContext)" id="email" asp-page="./Email">Email</a></li>

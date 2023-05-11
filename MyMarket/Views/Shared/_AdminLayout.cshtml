@@ -62,6 +62,14 @@
         });
 
         $(function () {
+            $('.property-link').on('click', function(e) {
+                e.preventDefault();
+                var url = $(this).data('url');
+                $('#partial-container').load(url);
+            });
+        });
+
+        $(function () {
           $('body').on('submit', '#search', function (e) {
             e.preventDefault();
 
@@ -75,7 +83,7 @@
                       type: type},
               success: function (data) {
                 $.ajax({
-                  url: `/admin/${type}`,
+                  url: `/${type}/${type}`,
                   method: 'POST',
                   data: { categories: data },
                   success: function (partialView) {

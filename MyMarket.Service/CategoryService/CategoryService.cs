@@ -40,11 +40,16 @@ namespace MyMarket.Service.CategoryService
 
         public async Task Create(CategoryViewModel formData)
         {
-            var category = new Category()
+            var category = new Category();
+            category.Name = formData.Name;
+            if(formData.ParentId == 0)
             {
-                Name = formData.Name,
-                ParentId = formData.ParentId,
-            };
+                category.ParentId = null;
+            }
+            else
+            {
+                category.ParentId = formData.ParentId;
+            }
 
             await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();

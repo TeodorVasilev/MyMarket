@@ -22,10 +22,15 @@ namespace MyMarket.Service.SearchService
             switch (formData.Type.ToLower())
             {
                 case "categories":
-                    var categories = await _context.Categories
+                    var categories = await this._context.Categories
                         .Where(c => c.Name.Contains(formData.Term))
                         .ToListAsync();
                     return this._mappingService.Map<List<Category>, List<CategoryViewModel>>(categories);
+                case "properties":
+                    var properties = await this._context.Properties
+                        .Where(p => p.Name.Contains(formData.Term))
+                        .ToListAsync();
+                    return this._mappingService.Map<List<Property>, List<PropertyViewModel>>(properties);
                 default:
                     return null;
             }

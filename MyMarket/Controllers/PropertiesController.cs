@@ -12,7 +12,7 @@ namespace MyMarket.Controllers
             _propertyService = propertyService;
         }
 
-        public async Task<IActionResult> Properties()
+        public async Task<IActionResult> Index()
         {
             return PartialView("~/Views/Shared/Settings/_Properties.cshtml", await this._propertyService.GetPropertyViewModels());
         }
@@ -30,19 +30,19 @@ namespace MyMarket.Controllers
         public async Task<IActionResult> Create(PropertyViewModel formData)
         {
             await this._propertyService.Create(formData);
-            return CreatedAtAction(nameof(GetPropertyById), new { id = formData.Id }, formData);
+            return Json(new { success = true });
         }
 
         public async Task<IActionResult> Update(PropertyViewModel formData)
         {
             await this._propertyService.Update(formData);
-            return NoContent();
+            return Json(new { success = true });
         }
 
         public async Task<IActionResult> Delete(int id)
         {
             await this._propertyService.Delete(id);
-            return NoContent();
+            return Json(new { success = true });
         }
     }
 }

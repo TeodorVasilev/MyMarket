@@ -32,7 +32,7 @@
                                 <td>@category.ParentName</td>
                                 <td>
                                     <a class="btn btn-sm btn-warning" href="#">Edit</a>
-                                    <a class="btn btn-sm btn-danger" asp-action="Delete" asp-controller="Categories" asp-route-id="@category.Id">Delete</a>
+                                    <a class="btn btn-sm btn-danger delete" href="#" data-controller="Categories" data-id="@category.Id">Delete</a>
                                 </td>
                             </tr>
                         }
@@ -43,7 +43,7 @@
     </div>
     <div class="col-md-3">
         <h4>Създаване на нова категория</h4>
-        <form method="post" asp-action="Create" asp-controller="Categories">
+        <form method="post" data-controller="Categories" class="create">
             <div class="form-group">
                 <label for="categoryName">Име</label>
                 <input type="text" name="name" class="form-control" id="categoryName">

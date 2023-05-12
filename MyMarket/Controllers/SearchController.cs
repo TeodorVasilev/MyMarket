@@ -21,12 +21,12 @@ namespace MyMarket.Controllers
                 case "categories":
                     var categories = searchResults as List<CategoryViewModel>;
                     return Ok(categories);
-                    break;
+                case "properties":
+                    var properties = searchResults as List<PropertyViewModel>;
+                    return Ok(properties);
                 default:
                     throw new ArgumentException("Invalid search type", nameof(formData.Type));
             }
-            //
-            return RedirectToAction("Categories", "Category");
         }
     }
 }

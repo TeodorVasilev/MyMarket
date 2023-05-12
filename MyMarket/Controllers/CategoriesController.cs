@@ -13,7 +13,7 @@ namespace MyMarket.Controllers
             _categoryService = categoryService;
         }
 
-        public async Task<IActionResult> Categories()
+        public async Task<IActionResult> Index()
         {
             return PartialView("~/Views/Shared/Settings/_Categories.cshtml", await this._categoryService.GetCategoryViewModels());
         }
@@ -31,19 +31,19 @@ namespace MyMarket.Controllers
         public async Task<IActionResult> Create(CategoryViewModel formData)
         {
             await this._categoryService.Create(formData);
-            return CreatedAtAction(nameof(GetCategoryById), new { id = formData.Id }, formData);
+            return Json(new { success = true });
         }
 
         public async Task<IActionResult> Update(CategoryViewModel formData)
         {
             await this._categoryService.Update(formData);
-            return NoContent();
+            return Json(new { success = true });
         }
 
         public async Task<IActionResult> Delete(int id)
         {
             await this._categoryService.Delete(id);
-            return NoContent();
+            return Json(new { success = true });
         }
     }
 }

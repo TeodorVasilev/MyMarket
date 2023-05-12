@@ -30,7 +30,7 @@
                                 <td>@property.Name</td>
                                 <td>
                                     <a class="btn btn-sm btn-warning" href="#">Edit</a>
-                                    <a class="btn btn-sm btn-danger delete" asp-action="Delete" asp-controller="Properties">Delete</a>
+                                    <a class="btn btn-sm btn-danger delete" href="#" data-controller="Properties" data-id="@property.Id">Delete</a>
                                 </td>
                             </tr>
                         }
@@ -41,7 +41,7 @@
     </div>
     <div class="col-md-3">
         <h4>Създаване на ново пропърти</h4>
-        <form method="post" asp-action="Create" asp-controller="Properties">
+        <form class="create" method="post" data-controller="Properties">
             <div class="form-group">
                 <label for="name">Име</label>
                 <input type="text" name="name" class="form-control" id="propertyName">

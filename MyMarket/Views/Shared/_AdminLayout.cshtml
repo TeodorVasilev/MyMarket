@@ -53,6 +53,8 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script>
+
+        //load partial categories
         $(function () {
             $('.category-link').on('click', function(e) {
                 e.preventDefault();
@@ -61,6 +63,7 @@
             });
         });
 
+        //load partial properties
         $(function () {
             $('.property-link').on('click', function(e) {
                 e.preventDefault();
@@ -69,36 +72,87 @@
             });
         });
 
-        $(function () {
-          $('body').on('submit', '#search', function (e) {
+        //delete entry cat, props, options
+        $('body').on('click', '.delete', function(e) {
             e.preventDefault();
 
-            var term = $('#search-term').val();
-            var type = $('#search-type').val();
+            var controller = $(this).data('controller');
+            var id = $(this).data('id');
 
             $.ajax({
-              url: `/search/search?searchType=${type}`,
-              method: 'POST',
-              data: { term: term,
-                      type: type},
-              success: function (data) {
-                $.ajax({
-                  url: `/${type}/${type}`,
-                  method: 'POST',
-                  data: { categories: data },
-                  success: function (partialView) {
-                    $('#partial-container').html(partialView);
-                  },
-                  error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(textStatus);
-                  }
-                });
-              },
-              error: function (jqXHR, textStatus, errorThrown) {
-                console.log(textStatus);
-              }
+                url: '/' + controller + '/Delete/' + id,
+                type: 'POST',
+                success: function(result) {
+                    if (result.success) {
+                        loadPartialView(controller);
+                    }
+                }
             });
-          });
+        });
+
+        //create cat, props, option
+        $('body').on('submit', '.create', function(e) {
+            e.preventDefault();
+
+            var controller = $(this).data('controller');
+            var data = $(this).serialize();
+
+            $.ajax({
+                url: '/' + controller + '/Create/',
+                type: 'POST',
+                data: data,
+                success: function(result){
+                    if(result.success){
+                        loadPartialView(controller);
+                    }
+                }
+            })
+        });
+
+        //load partial after action
+        function loadPartialView(controller) {
+        $.ajax({
+            url: '/' + controller + '/Index',
+            type: 'GET',
+            success: function(result) {
+                    $('#partial-container').html(result);
+                }
+            });
+        }
+
+        //search
+        $(function () {
+            $('body').on('submit', '#search', function (e) {
+                e.preventDefault();
+        
+                var term = $('#search-term').val();
+                var type = $('#search-type').val();
+        
+                $.ajax({
+                    url: `/search/search?searchType=${type}`,
+                    method: 'POST',
+                    data: { term: term, type: type },
+                    success: function (data) {
+                        var payload = {};
+                        payload[type] = data;
+        
+                        $.ajax({
+                            url: `/${type}/${type}`,
+                            method: 'POST',
+                            data: payload,
+                            success: function (partialView) {
+                                $('#partial-container').html(partialView);
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                console.log(textStatus);
+                            }
+                        });
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        console.log(textStatus);
+                    }
+                });
+            });
         });
     </script>
 </body>

@@ -15,6 +15,7 @@ namespace MyMarket.DAL.Configuration
                 .HasForeignKey(c => c.ParentId)
                 .IsRequired(false)
                 .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

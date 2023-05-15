@@ -23,12 +23,22 @@ namespace MyMarket.Controllers
             return PartialView("~/Views/Shared/Settings/_Categories.cshtml", categories);
         }
 
+        public async Task<IActionResult> GetParentCategories()
+        {
+            return Json(await this._categoryService.GetParentCategoriesViewModels());
+        }
+
+        public async Task<IActionResult> GetChildCategories(int parentId)
+        {
+            return Json(await this._categoryService.GetChildCategoriesViewModels(parentId));
+        }
+
         public async Task<CategoryViewModel> GetCategoryById(int id)
         {
             return await this._categoryService.GetCategoryViewModel(id);
         }
 
-        public async Task<IActionResult> Create(CategoryViewModel formData)
+        public async Task<IActionResult> Create([FromBody]CategoryViewModel formData)
         {
             await this._categoryService.Create(formData);
             return Json(new { success = true });

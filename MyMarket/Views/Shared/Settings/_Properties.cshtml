@@ -8,7 +8,7 @@
                 <input type="hidden" id="search-type" value="properties" />
                 <input type="text" id="search-term" name="term" class="form-control" placeholder="Търсене...">
                 <div class="input-group-append">
-                    <input class="btn btn-primary ms-2" type="submit"/>
+                    <input class="btn btn-primary ms-2" type="submit" />
                 </div>
             </form>
         </div>
@@ -40,13 +40,21 @@
         </div>
     </div>
     <div class="col-md-3">
-        <h4>Създаване на ново пропърти</h4>
+        <h4>Създаване на ново свойство</h4>
         <form class="create" method="post" data-controller="Properties">
             <div class="form-group">
                 <label for="name">Име</label>
                 <input type="text" name="name" class="form-control" id="propertyName">
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Create</button>
+            <div class="form-group">
+                <label for="name">Основна Категория</label>
+                <select id="parentCategories" class="form-control">
+                    <option>Изберете основна категория</option>
+                </select>
+            </div>
+            <div id="childCategories" style="height: calc(100vh - 350px); overflow-y: scroll;" class="d-flex flex-column">
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Създай</button>
         </form>
     </div>
 </div>

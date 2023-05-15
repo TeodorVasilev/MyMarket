@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyMarket.DAL.ViewModels.Listings;
+using MyMarket.Service.CategoryService;
 using MyMarket.Service.PropertyService;
 
 namespace MyMarket.Controllers
@@ -7,9 +8,11 @@ namespace MyMarket.Controllers
     public class PropertiesController : Controller
     {
         private readonly IPropertyService _propertyService;
-        public PropertiesController(IPropertyService propertyService)
+        private readonly ICategoryService _categoryService;
+        public PropertiesController(IPropertyService propertyService, ICategoryService categoryService)
         {
             _propertyService = propertyService;
+            _categoryService = categoryService;
         }
 
         public async Task<IActionResult> Index()
@@ -27,7 +30,7 @@ namespace MyMarket.Controllers
             return await this._propertyService.GetPropertyViewModel(id);
         }
 
-        public async Task<IActionResult> Create(PropertyViewModel formData)
+        public async Task<IActionResult> Create([FromBody]PropertyViewModel formData)
         {
             await this._propertyService.Create(formData);
             return Json(new { success = true });

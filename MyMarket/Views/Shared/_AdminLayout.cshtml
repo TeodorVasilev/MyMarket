@@ -6,6 +6,7 @@
     <title>@ViewData["Title"] - My Application</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -52,12 +53,41 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
+        //select2
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+
+        //load child categories checkboxes for property creation
+        $('body').on('change', '#parentCategories', function() {
+        var selectedId = $(this).val();
+    
+            $.ajax({
+                url: '/Categories/GetChildCategories?parentId' + selectedId,
+                type: 'GET',
+                data: { parentId: selectedId},
+                success: function(response) {
+                    var childCategoriesDiv = $('#childCategories');
+                    childCategoriesDiv.empty();
+                    $.each(response, function(i, category) {
+                        var checkBox = $('<input />', { type: 'checkbox', id: 'cb' + category.id, style: 'margin-right: 5px;'});
+                        var label = $('<label />', { 'for': 'cb' + category.id, text: category.name });
+                        var div = $('<div />');
+                        div.append(checkBox);
+                        div.append(label);
+                        childCategoriesDiv.append(div);
+                    });
+                }
+            });
+        });
 
         //load partial categories
         $(function () {
             $('.category-link').on('click', function(e) {
                 e.preventDefault();
+                console.log('categoriess');
                 var url = $(this).data('url');
                 $('#partial-container').load(url);
             });
@@ -67,8 +97,21 @@
         $(function () {
             $('.property-link').on('click', function(e) {
                 e.preventDefault();
+                console.log('properties');
                 var url = $(this).data('url');
-                $('#partial-container').load(url);
+                $('#partial-container').load(url, function () {
+                    $.ajax({
+                        url: '/Categories/GetParentCategories',
+                        type: 'GET',
+                        success: function(response){
+                            var parentCategoriesSelect = $('#parentCategories');
+                                response.forEach(function(category){
+                                var option = new Option( category.name, category.id);
+                                parentCategoriesSelect.append($(option));
+                            });
+                        }
+                    });
+                });
             });
         });
 
@@ -95,12 +138,26 @@
             e.preventDefault();
 
             var controller = $(this).data('controller');
-            var data = $(this).serialize();
+            var selectedCheckboxes = [];
+
+            if (controller === 'Properties') {
+                selectedCheckboxes = $('#childCategories input[type=checkbox]:checked').map(function() {
+                return parseInt(this.id.replace('cb', ''), 10); 
+                }).get();
+            }
+
+            var formData = $(this).serializeArray().reduce(function(obj, item) {
+                obj[item.name] = item.value;
+                return obj;
+            }, {});
+
+            formData.CategoriesIds = selectedCheckboxes;
 
             $.ajax({
                 url: '/' + controller + '/Create/',
                 type: 'POST',
-                data: data,
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
                 success: function(result){
                     if(result.success){
                         loadPartialView(controller);
@@ -124,10 +181,10 @@
         $(function () {
             $('body').on('submit', '#search', function (e) {
                 e.preventDefault();
-        
+
                 var term = $('#search-term').val();
                 var type = $('#search-type').val();
-        
+
                 $.ajax({
                     url: `/search/search?searchType=${type}`,
                     method: 'POST',
@@ -135,7 +192,7 @@
                     success: function (data) {
                         var payload = {};
                         payload[type] = data;
-        
+
                         $.ajax({
                             url: `/${type}/${type}`,
                             method: 'POST',

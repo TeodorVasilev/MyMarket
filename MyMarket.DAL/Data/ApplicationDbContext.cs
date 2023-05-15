@@ -52,24 +52,26 @@ namespace MyMarket.DAL.Data
         {
             base.OnModelCreating(builder);
 
-            //builder.Entity<Role>().HasData(
-            //    new Role
-            //    {
-            //        Id = Guid.NewGuid().ToString(),
-            //        Name = "User",
-            //        NormalizedName="USER",
-            //    },
-            //    new Role
-            //    {
-            //        Id = Guid.NewGuid().ToString(),
-            //        Name = "Admin",
-            //        NormalizedName="ADMIN",
-            //    }
-            //);
+            builder.Entity<Role>().HasData(
+                new Role
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "User",
+                    NormalizedName = "USER",
+                },
+                new Role
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Admin",
+                    NormalizedName = "ADMIN",
+                }
+            );
 
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new ListingConfiguration());
-            builder.ApplyConfiguration(new OptionConfiguration());
+            builder.ApplyConfiguration(new CategoryPropertyConfiguration());
+            builder.ApplyConfiguration(new ListingOptionConfiguration());
+            builder.ApplyConfiguration(new PropertyOptionConfiguration());
         }
     }
 }

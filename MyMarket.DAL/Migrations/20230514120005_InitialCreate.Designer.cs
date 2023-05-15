@@ -12,8 +12,8 @@ using MyMarket.DAL.Data;
 namespace MyMarket.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230427163040_Initial")]
-    partial class Initial
+    [Migration("20230514120005_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -278,6 +278,21 @@ namespace MyMarket.DAL.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("MyMarket.DAL.Models.Listings.CategoryProperty", b =>
+                {
+                    b.Property<int>("PropertyId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PropertyId", "CategoryId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("CategoryProperty");
+                });
+
             modelBuilder.Entity("MyMarket.DAL.Models.Listings.Listing", b =>
                 {
                     b.Property<int>("Id")
@@ -327,6 +342,21 @@ namespace MyMarket.DAL.Migrations
                     b.ToTable("Listings");
                 });
 
+            modelBuilder.Entity("MyMarket.DAL.Models.Listings.ListingOption", b =>
+                {
+                    b.Property<int>("ListingId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OptionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ListingId", "OptionId");
+
+                    b.HasIndex("OptionId");
+
+                    b.ToTable("ListingOption");
+                });
+
             modelBuilder.Entity("MyMarket.DAL.Models.Listings.Option", b =>
                 {
                     b.Property<int>("Id")
@@ -335,10 +365,7 @@ namespace MyMarket.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ListingId")
+                    b.Property<int?>("ListingId")
                         .HasColumnType("int");
 
                     b.Property<int>("PropertyId")
@@ -349,8 +376,6 @@ namespace MyMarket.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.HasIndex("ListingId");
 
@@ -378,23 +403,18 @@ namespace MyMarket.DAL.Migrations
 
             modelBuilder.Entity("MyMarket.DAL.Models.Listings.PropertyOption", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("PropertyId")
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("OptionId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PropertyId")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("PropertyId", "OptionId");
 
                     b.HasIndex("OptionId");
-
-                    b.HasIndex("PropertyId");
 
                     b.ToTable("PropertyOption");
                 });
@@ -404,6 +424,22 @@ namespace MyMarket.DAL.Migrations
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
 
                     b.HasDiscriminator().HasValue("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "23abf27a-a4ea-4b27-9096-02a9156ec17d",
+                            ConcurrencyStamp = "befb5811-19a7-46be-a20e-4c9fa5cb1459",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "fbea44ef-4fc9-4629-b34c-8e0c7817bf65",
+                            ConcurrencyStamp = "5a4697d2-9dff-4241-a5c5-d028687c0a1a",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("MyMarket.DAL.Models.Account.User", b =>
@@ -485,6 +521,25 @@ namespace MyMarket.DAL.Migrations
                     b.Navigation("Parent");
                 });
 
+            modelBuilder.Entity("MyMarket.DAL.Models.Listings.CategoryProperty", b =>
+                {
+                    b.HasOne("MyMarket.DAL.Models.Listings.Category", "Category")
+                        .WithMany("CategoryProperties")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyMarket.DAL.Models.Listings.Property", "Property")
+                        .WithMany("CategoryProperties")
+                        .HasForeignKey("PropertyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Property");
+                });
+
             modelBuilder.Entity("MyMarket.DAL.Models.Listings.Listing", b =>
                 {
                     b.HasOne("MyMarket.DAL.Models.Listings.Category", "Category")
@@ -504,29 +559,36 @@ namespace MyMarket.DAL.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("MyMarket.DAL.Models.Listings.Option", b =>
+            modelBuilder.Entity("MyMarket.DAL.Models.Listings.ListingOption", b =>
                 {
-                    b.HasOne("MyMarket.DAL.Models.Listings.Category", "Category")
-                        .WithMany("Options")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                    b.HasOne("MyMarket.DAL.Models.Listings.Listing", "Listing")
+                        .WithMany("ListingOptions")
+                        .HasForeignKey("ListingId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MyMarket.DAL.Models.Listings.Listing", "Listing")
-                        .WithMany("Options")
-                        .HasForeignKey("ListingId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                    b.HasOne("MyMarket.DAL.Models.Listings.Option", "Option")
+                        .WithMany("ListingOptions")
+                        .HasForeignKey("OptionId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Listing");
+
+                    b.Navigation("Option");
+                });
+
+            modelBuilder.Entity("MyMarket.DAL.Models.Listings.Option", b =>
+                {
+                    b.HasOne("MyMarket.DAL.Models.Listings.Listing", null)
+                        .WithMany("Options")
+                        .HasForeignKey("ListingId");
 
                     b.HasOne("MyMarket.DAL.Models.Listings.Property", "Property")
                         .WithMany("Options")
                         .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.NoAction)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Listing");
 
                     b.Navigation("Property");
                 });
@@ -536,13 +598,13 @@ namespace MyMarket.DAL.Migrations
                     b.HasOne("MyMarket.DAL.Models.Listings.Option", "Option")
                         .WithMany("PropertyOptions")
                         .HasForeignKey("OptionId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("MyMarket.DAL.Models.Listings.Property", "Property")
                         .WithMany("PropertyOptions")
                         .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Option");
@@ -552,27 +614,33 @@ namespace MyMarket.DAL.Migrations
 
             modelBuilder.Entity("MyMarket.DAL.Models.Listings.Category", b =>
                 {
+                    b.Navigation("CategoryProperties");
+
                     b.Navigation("Children");
 
                     b.Navigation("Listings");
-
-                    b.Navigation("Options");
                 });
 
             modelBuilder.Entity("MyMarket.DAL.Models.Listings.Listing", b =>
                 {
                     b.Navigation("Images");
 
+                    b.Navigation("ListingOptions");
+
                     b.Navigation("Options");
                 });
 
             modelBuilder.Entity("MyMarket.DAL.Models.Listings.Option", b =>
                 {
+                    b.Navigation("ListingOptions");
+
                     b.Navigation("PropertyOptions");
                 });
 
             modelBuilder.Entity("MyMarket.DAL.Models.Listings.Property", b =>
                 {
+                    b.Navigation("CategoryProperties");
+
                     b.Navigation("Options");
 
                     b.Navigation("PropertyOptions");

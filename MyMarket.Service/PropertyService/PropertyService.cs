@@ -25,6 +25,21 @@ namespace MyMarket.Service.PropertyService
 
             await _context.Properties.AddAsync(property);
             await _context.SaveChangesAsync();
+
+            property.CategoryProperties = new List<CategoryProperty>();
+
+            foreach (var id in formData.CategoriesIds)
+            {
+                var categoryProperty = new CategoryProperty()
+                {
+                    CategoryId = id,
+                    PropertyId = property.Id
+                };
+
+                property.CategoryProperties.Add(categoryProperty);
+            }
+
+            await _context.SaveChangesAsync();
         }
 
         public async Task Delete(int id)

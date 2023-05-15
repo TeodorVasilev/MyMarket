@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MyMarket.DAL.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -223,6 +223,30 @@ namespace MyMarket.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CategoryProperty",
+                columns: table => new
+                {
+                    CategoryId = table.Column<int>(type: "int", nullable: false),
+                    PropertyId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CategoryProperty", x => new { x.PropertyId, x.CategoryId });
+                    table.ForeignKey(
+                        name: "FK_CategoryProperty_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CategoryProperty_Properties_PropertyId",
+                        column: x => x.PropertyId,
+                        principalTable: "Properties",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Images",
                 columns: table => new
                 {
@@ -249,18 +273,12 @@ namespace MyMarket.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Value = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CategoryId = table.Column<int>(type: "int", nullable: false),
                     PropertyId = table.Column<int>(type: "int", nullable: false),
-                    ListingId = table.Column<int>(type: "int", nullable: false)
+                    ListingId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Options", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Options_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Options_Listings_ListingId",
                         column: x => x.ListingId,
@@ -270,34 +288,66 @@ namespace MyMarket.DAL.Migrations
                         name: "FK_Options_Properties_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "Properties",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ListingOption",
+                columns: table => new
+                {
+                    ListingId = table.Column<int>(type: "int", nullable: false),
+                    OptionId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ListingOption", x => new { x.ListingId, x.OptionId });
+                    table.ForeignKey(
+                        name: "FK_ListingOption_Listings_ListingId",
+                        column: x => x.ListingId,
+                        principalTable: "Listings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ListingOption_Options_OptionId",
+                        column: x => x.OptionId,
+                        principalTable: "Options",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "PropertyOption",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     PropertyId = table.Column<int>(type: "int", nullable: false),
-                    OptionId = table.Column<int>(type: "int", nullable: false)
+                    OptionId = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PropertyOption", x => x.Id);
+                    table.PrimaryKey("PK_PropertyOption", x => new { x.PropertyId, x.OptionId });
                     table.ForeignKey(
                         name: "FK_PropertyOption_Options_OptionId",
                         column: x => x.OptionId,
                         principalTable: "Options",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_PropertyOption_Properties_PropertyId",
                         column: x => x.PropertyId,
                         principalTable: "Properties",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Discriminator", "Name", "NormalizedName" },
+                values: new object[] { "23abf27a-a4ea-4b27-9096-02a9156ec17d", "befb5811-19a7-46be-a20e-4c9fa5cb1459", "Role", "User", "USER" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Discriminator", "Name", "NormalizedName" },
+                values: new object[] { "fbea44ef-4fc9-4629-b34c-8e0c7817bf65", "5a4697d2-9dff-4241-a5c5-d028687c0a1a", "Role", "Admin", "ADMIN" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -344,9 +394,19 @@ namespace MyMarket.DAL.Migrations
                 column: "ParentId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CategoryProperty_CategoryId",
+                table: "CategoryProperty",
+                column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Images_ListingId",
                 table: "Images",
                 column: "ListingId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ListingOption_OptionId",
+                table: "ListingOption",
+                column: "OptionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Listings_CategoryId",
@@ -357,11 +417,6 @@ namespace MyMarket.DAL.Migrations
                 name: "IX_Listings_UserId",
                 table: "Listings",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Options_CategoryId",
-                table: "Options",
-                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Options_ListingId",
@@ -377,11 +432,6 @@ namespace MyMarket.DAL.Migrations
                 name: "IX_PropertyOption_OptionId",
                 table: "PropertyOption",
                 column: "OptionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PropertyOption_PropertyId",
-                table: "PropertyOption",
-                column: "PropertyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -402,7 +452,13 @@ namespace MyMarket.DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "CategoryProperty");
+
+            migrationBuilder.DropTable(
                 name: "Images");
+
+            migrationBuilder.DropTable(
+                name: "ListingOption");
 
             migrationBuilder.DropTable(
                 name: "PropertyOption");

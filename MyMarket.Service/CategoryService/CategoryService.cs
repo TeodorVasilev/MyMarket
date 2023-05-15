@@ -77,5 +77,17 @@ namespace MyMarket.Service.CategoryService
             this._context.Categories.Remove(category);
             await this._context.SaveChangesAsync();
         }
+
+        public async Task<List<CategoryViewModel>> GetParentCategoriesViewModels()
+        {
+            var categories = await this._context.Categories.Where(c => c.ParentId == null).ToListAsync();
+            return this._mappingService.Map<List<Category>, List<CategoryViewModel>>(categories);
+        }
+
+        public async Task<List<CategoryViewModel>> GetChildCategoriesViewModels(int parentId)
+        {
+            var categories = await this._context.Categories.Where(c => c.ParentId == parentId).Include(c => c.Children).ToListAsync();
+            return this._mappingService.Map<List<Category>, List<CategoryViewModel>>(categories);
+        }
     }
 }

@@ -13,12 +13,14 @@ namespace MyMarket.DAL.Configuration
             builder
                 .HasOne(po => po.Property)
                 .WithMany(p => p.PropertyOptions)
-                .HasForeignKey(po => po.PropertyId);
+                .HasForeignKey(po => po.PropertyId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder
                 .HasOne(po => po.Option)
                 .WithMany(o => o.PropertyOptions)
-                .HasForeignKey(po => po.OptionId);
+                .HasForeignKey(po => po.OptionId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

@@ -19,5 +19,6 @@ namespace MyMarket.DAL.Models.Listings
         public virtual User User { get; set; }
         public virtual ICollection<Option> Options { get; set; }
         public virtual ICollection<Image> Images { get; set; }
+        public virtual ICollection<ListingOption> ListingOptions { get; set; }
     }
 }

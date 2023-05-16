@@ -1,0 +1,73 @@
+﻿@using MyMarket.DAL.ViewModels.Listings
+@model List<StaticOptionViewModel>
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="input-group my-2">
+            <form id="search" class="d-flex" action="@Url.Action("Search", "Search")">
+                <input type="hidden" id="search-type" value="options" />
+                <input type="text" id="search-term" name="term" class="form-control" placeholder="Търсене...">
+                <div class="input-group-append">
+                    <input class="btn btn-primary ms-2" type="submit" />
+                </div>
+            </form>
+        </div>
+        <div class="row" style="height: calc(100vh - 210px); overflow-y: scroll;">
+            <div class="col">
+                <table class="table table-striped table-sm text-center">
+                    <thead class="sticky-top bg-white">
+                        <tr>
+                            <th>ID</th>
+                            <th>Име</th>
+                            <th>Свойство ID</th>
+                            <th>Свойство</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var option in @Model)
+                        {
+                            <tr>
+                                <td>@option.Id</td>
+                                <td>@option.Value</td>
+                                <td>@option.PropertyId</td>
+                                <td>@option.Property</td>
+                                <td>
+                                    <a class="btn btn-sm btn-warning" href="#">Edit</a>
+                                    <a class="btn btn-sm btn-danger delete" href="#" data-controller="Options" data-id="@option.Id">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <h4>Създаване на нова статична опция</h4>
+        <form class="create" method="post" data-controller="Options">
+            <div class="form-group">
+                <label for="value">Име</label>
+                <input type="text" name="value" class="form-control" id="optionName">
+            </div>
+            <div class="form-group">
+                <label for="name">Основна Категория</label>
+                <select id="option-parent-categories" class="form-control">
+                    <option>Изберете основна категория</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="name">Подкатегория</label>
+                <select id="child-categories" class="form-control">
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="property">Свойство</label>
+                <select name="propertyId" id="properties" class="form-control">
+                    <option>Изберете свойство</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Създай</button>
+        </form>
+    </div>
+</div>

@@ -6,6 +6,7 @@ using MyMarket.DAL.Mappings;
 using MyMarket.Service.CategoryService;
 using MyMarket.Service.ListingService;
 using MyMarket.Service.MappingService;
+using MyMarket.Service.OptionService;
 using MyMarket.Service.PageService.Home;
 using MyMarket.Service.PropertyService;
 using MyMarket.Service.SearchService;
@@ -34,6 +35,7 @@ builder.Services.AddScoped<IMapper>(sp =>
     return config.CreateMapper();
 });
 builder.Services.AddScoped<IMappingService, MappingService>();
+builder.Services.AddScoped<IOptionService, OptionService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IHomeService, HomeService>();
 builder.Services.AddScoped<IListingService, ListingService>();

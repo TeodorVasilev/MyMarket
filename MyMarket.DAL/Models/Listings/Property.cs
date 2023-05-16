@@ -5,6 +5,7 @@
         public int Id { get; set; }
         public string Name { get; set; }
         public virtual ICollection<Option> Options { get; set; }
+        public virtual ICollection<StaticOption> StaticOptions { get; set; }
         public virtual ICollection<PropertyOption> PropertyOptions { get; set; }
         public virtual ICollection<CategoryProperty> CategoryProperties { get; set; }
     }

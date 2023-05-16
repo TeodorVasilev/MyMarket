@@ -69,6 +69,7 @@
                 type: 'GET',
                 data: { parentId: selectedId},
                 success: function(response) {
+                    console.log(response);
                     var childCategoriesDiv = $('#childCategories');
                     childCategoriesDiv.empty();
                     $.each(response, function(i, category) {
@@ -83,13 +84,72 @@
             });
         });
 
+        //load child categories select options for option creation
+        $('body').on('change', '#option-parent-categories', function() {
+        var selectedId = $(this).val();
+    
+            $.ajax({
+                url: '/Categories/GetChildCategories?parentId' + selectedId,
+                type: 'GET',
+                data: { parentId: selectedId},
+                success: function(response) {
+                    var childCategoriesDiv = $('#child-categories');
+                    childCategoriesDiv.empty();
+                    var defOption = '<option>Изберете подкатегория</option>'
+                    $('#child-categories').append(defOption);
+                    $.each(response, function(i, category) {
+                        var option = $('<option />', { value: category.id, text: category.name });
+                        $("#child-categories").append(option);
+                    });
+                }
+            });
+        });
+
+        //load properties related to selected category for option creation
+        $('body').on('change', '#child-categories', function(){
+            var selectedId = $(this).val();
+            $.ajax({
+                url: '/Properties/GetPropertiesByCategoryId?categoryId=' + selectedId,
+                type: 'GET',
+                success: function(response) {
+                    var propertiesSelect  = $('#properties');
+                    propertiesSelect.empty();
+                    $.each(response, function(i, property) {
+                        var option = $('<option />', {value: property.id, text: property.name});
+                        $('#properties').append(option);
+                    });
+                }
+            })
+        })
+
         //load partial categories
         $(function () {
             $('.category-link').on('click', function(e) {
                 e.preventDefault();
-                console.log('categoriess');
                 var url = $(this).data('url');
                 $('#partial-container').load(url);
+            });
+        });
+
+        //load partial options
+        $(function () {
+            $('.option-link').on('click', function(e) {
+                e.preventDefault();
+                console.log('options');
+                var url = $(this).data('url');
+                $('#partial-container').load(url, function () {
+                    $.ajax({
+                        url: '/Categories/GetParentCategories',
+                        type: 'GET',
+                        success: function(response){
+                            var parentCategoriesSelect = $('#option-parent-categories');
+                                response.forEach(function(category){
+                                var option = new Option( category.name, category.id);
+                                parentCategoriesSelect.append($(option));
+                            });
+                        }
+                    });
+                });
             });
         });
 
@@ -97,7 +157,6 @@
         $(function () {
             $('.property-link').on('click', function(e) {
                 e.preventDefault();
-                console.log('properties');
                 var url = $(this).data('url');
                 $('#partial-container').load(url, function () {
                     $.ajax({
@@ -138,6 +197,7 @@
             e.preventDefault();
 
             var controller = $(this).data('controller');
+            console.log(controller);
             var selectedCheckboxes = [];
 
             if (controller === 'Properties') {
@@ -150,6 +210,8 @@
                 obj[item.name] = item.value;
                 return obj;
             }, {});
+
+            console.log(JSON.stringify(formData));
 
             formData.CategoriesIds = selectedCheckboxes;
 

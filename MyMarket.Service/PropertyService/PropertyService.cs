@@ -54,6 +54,17 @@ namespace MyMarket.Service.PropertyService
             return await this._context.Properties.ToListAsync();
         }
 
+        public async Task<List<PropertyViewModel>> GetPropertiesByCategoryId(int categoryId)
+        {
+            var properties = await this._context.Properties
+                .Include(p => p.CategoryProperties)
+                .ThenInclude(cp => cp.Category)
+                .Where(p => p.CategoryProperties.Any(cp => cp.CategoryId == categoryId)).
+                ToListAsync();
+
+            return this._mappingService.Map<List<Property>, List<PropertyViewModel>>(properties);
+        }
+
         public async Task<Property> GetPropertyById(int id)
         {
             return await this._context.Properties.Where(p => p.Id == id).FirstOrDefaultAsync();

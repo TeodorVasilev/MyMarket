@@ -25,6 +25,16 @@ namespace MyMarket.Controllers
             return PartialView("~/Views/Shared/Settings/_Properties.cshtml", properties);
         }
 
+        public async Task<IActionResult> GetProperties()
+        {
+            return Json(await this._propertyService.GetPropertyViewModels());
+        }
+
+        public async Task<IActionResult> GetPropertiesByCategoryId(int categoryId)
+        {
+            return Json(await this._propertyService.GetPropertiesByCategoryId(categoryId));
+        }
+
         public async Task<PropertyViewModel> GetPropertyById(int id)
         {
             return await this._propertyService.GetPropertyViewModel(id);

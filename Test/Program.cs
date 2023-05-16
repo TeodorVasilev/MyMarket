@@ -10,7 +10,7 @@ var browser = new ScrapingBrowser();
 browser.Encoding = Encoding.UTF8;
 Console.OutputEncoding = Encoding.UTF8;
 
-var homepage = browser.NavigateToPage(new Uri(""));
+var homepage = browser.NavigateToPage(new Uri("https://prodavash.bg/sitemap"));
 
 var html = homepage.Html.CssSelect(".filled-blue .row");
 var categoriesHtml = html.First();
@@ -71,23 +71,39 @@ using (var context = new ApplicationDbContext())
 {
     foreach (var kvp in categorySubCategories)
     {
-        var category = new Category() { Name = kvp.Key, ParentId = null };
-        context.Categories.Add(category);
-        context.SaveChanges();
+        var category = context.Categories.FirstOrDefault(c => c.Name == kvp.Key);
+        if (category == null)
+        {
+            category = new Category() { Name = kvp.Key, ParentId = null };
+            context.Categories.Add(category);
+            context.SaveChanges();
+            Console.WriteLine(category.Name);
+        }
 
         foreach (var subKvp in kvp.Value)
         {
-            var subCategory = new Category() { Name = subKvp.Key, ParentId = category.Id };
-            context.Categories.Add(subCategory);
-            context.SaveChanges();
+            var subCategory = context.Categories.FirstOrDefault(c => c.Name == subKvp.Key && c.ParentId == category.Id);
+            if (subCategory == null)
+            {
+                subCategory = new Category() { Name = subKvp.Key, ParentId = category.Id };
+                context.Categories.Add(subCategory);
+                context.SaveChanges();
+                Console.WriteLine($"--{category.Name}");
+
+            }
 
             if (subKvp.Value.Count > 0)
             {
                 foreach (var subValue in subKvp.Value)
                 {
-                    var subSubCategory = new Category() { Name = subValue, ParentId = subCategory.Id };
-                    context.Categories.Add(subSubCategory);
-                    context.SaveChanges();
+                    var subSubCategory = context.Categories.FirstOrDefault(c => c.Name == subValue && c.ParentId == subCategory.Id);
+                    if (subSubCategory == null)
+                    {
+                        subSubCategory = new Category() { Name = subValue, ParentId = subCategory.Id };
+                        context.Categories.Add(subSubCategory);
+                        context.SaveChanges();
+                        Console.WriteLine($"-- --{category.Name}");
+                    }
                 }
             }
         }

@@ -23,6 +23,7 @@ namespace MyMarket.DAL.Data
         public DbSet<Listing> Listings { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Option> Options { get; set; }
+        public DbSet<StaticOption> StaticOptions { get; set; }
         public DbSet<Property> Properties { get; set; }
         public DbSet<Image> Images { get; set; }
 

@@ -86,8 +86,20 @@ namespace MyMarket.Service.CategoryService
 
         public async Task<List<CategoryViewModel>> GetChildCategoriesViewModels(int parentId)
         {
-            var categories = await this._context.Categories.Where(c => c.ParentId == parentId).Include(c => c.Children).ToListAsync();
+            var categories = await this._context.Categories
+                .Where(c => c.ParentId == parentId)
+                .Include(c => c.Children)
+                .ThenInclude(c => c.Children).ToListAsync();
+
             return this._mappingService.Map<List<Category>, List<CategoryViewModel>>(categories);
         }
+        //private async Task LoadChildren(List<Category> categories)
+        //{
+        //    foreach (var category in categories)
+        //    {
+        //        category.Children = await this._context.Categories.Where(c => c.ParentId == category.Id).ToListAsync();
+        //        await LoadChildren(category.Children);
+        //    }
+        //}
     }
 }

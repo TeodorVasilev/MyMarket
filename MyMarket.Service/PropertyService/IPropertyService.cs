@@ -8,6 +8,7 @@ namespace MyMarket.Service.PropertyService
         Task<Property> GetPropertyById(int id);
         Task<List<Property>> GetProperties();
         Task<List<PropertyViewModel>> GetPropertyViewModels();
+        Task<List<PropertyViewModel>> GetPropertiesByCategoryId(int categoryId);
         Task<PropertyViewModel> GetPropertyViewModel(int id);
         Task Create(PropertyViewModel formData);
         Task Update(PropertyViewModel formData);

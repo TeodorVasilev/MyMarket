@@ -82,6 +82,16 @@ namespace MyMarket.Service.PropertyService
             return this._mappingService.Map<List<Property>, List<PropertyViewModel>>(properties);
         }
 
+        public async Task<List<PropertyViewModel>> GetPropertiesWithCategories()
+        {
+            var properties = await _context.Properties
+                                    .Include(p => p.CategoryProperties)
+                                        .ThenInclude(cp => cp.Category)
+                                    .ToListAsync();
+
+            return this._mappingService.Map<List<Property>, List<PropertyViewModel>>(properties);
+        }
+
         public async Task Update(PropertyViewModel formData)
         {
             var property = await this.GetPropertyById(formData.Id);

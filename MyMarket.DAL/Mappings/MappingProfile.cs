@@ -9,7 +9,8 @@ namespace MyMarket.DAL.Mappings
         public MappingProfile()
         {
             CreateMap<Category, CategoryViewModel>();
-            CreateMap<Property, PropertyViewModel>();
+            CreateMap<Property, PropertyViewModel>()
+                .ForMember(dest => dest.Categories, opt => opt.MapFrom(src => src.CategoryProperties.Select(cp => cp.Category)));
         }
 
         public static IMapper Initialize()

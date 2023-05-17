@@ -53,13 +53,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script>
-        //select2
-        $(document).ready(function() {
-            $('.select2').select2();
-        });
-
         //load child categories checkboxes for property creation
         $('body').on('change', '#parentCategories', function() {
         var selectedId = $(this).val();
@@ -73,18 +67,32 @@
                     var childCategoriesDiv = $('#childCategories');
                     childCategoriesDiv.empty();
                     $.each(response, function(i, category) {
-                        var checkBox = $('<input />', { type: 'checkbox', id: 'cb' + category.id, style: 'margin-right: 5px;'});
-                        var label = $('<label />', { 'for': 'cb' + category.id, text: category.name });
-                        var div = $('<div />');
-                        div.append(checkBox);
-                        div.append(label);
-                        childCategoriesDiv.append(div);
+                        if (category.children && category.children.length > 0) {
+                            var parentLabel = $('<label />', { text: category.name, style: 'font-weight: bold;'});
+                            childCategoriesDiv.append(parentLabel);
+                    
+                            $.each(category.children, function(j, childCategory) {
+                                var checkBox = $('<input />', { type: 'checkbox', id: 'cb' + childCategory.id, style: 'margin-right: 5px;'});
+                                var label = $('<label />', { 'for': 'cb' + childCategory.id, text: childCategory.name });
+                                var div = $('<div />', { style: 'padding-left: 20px;'});
+                                div.append(checkBox);
+                                div.append(label);
+                                childCategoriesDiv.append(div);
+                            });
+                        } else {
+                            var checkBox = $('<input />', { type: 'checkbox', id: 'cb' + category.id, style: 'margin-right: 5px;'});
+                            var label = $('<label />', { 'for': 'cb' + category.id, text: category.name });
+                            var div = $('<div />');
+                            div.append(checkBox);
+                            div.append(label);
+                            childCategoriesDiv.append(div);
+                        }
                     });
                 }
             });
         });
 
-        //load child categories select options for option creation
+        //load child categories select options for option creation // fix display of child categories
         $('body').on('change', '#option-parent-categories', function() {
         var selectedId = $(this).val();
     
@@ -97,10 +105,24 @@
                     childCategoriesDiv.empty();
                     var defOption = '<option>Изберете подкатегория</option>'
                     $('#child-categories').append(defOption);
-                    $.each(response, function(i, category) {
-                        var option = $('<option />', { value: category.id, text: category.name });
-                        $("#child-categories").append(option);
-                    });
+                
+                    function addOptions(categories, prefix) {
+                        $.each(categories, function(i, category) {
+                            var option;
+                            if (category.children && category.children.length > 0) {
+                                option = $('<option />', { value: category.id, text: prefix + category.name, disabled: 'disabled' });
+                            } else {
+                                option = $('<option />', { value: category.id, text: prefix + category.name });
+                            }
+                            $("#child-categories").append(option);
+                       
+                            if (category.children && category.children.length > 0) {
+                                addOptions(category.children, prefix + "--");
+                            }
+                        });
+                    }
+
+                    addOptions(response, "");
                 }
             });
         });
@@ -230,11 +252,25 @@
 
         //load partial after action
         function loadPartialView(controller) {
-        $.ajax({
-            url: '/' + controller + '/Index',
-            type: 'GET',
-            success: function(result) {
+            $.ajax({
+                url: '/' + controller + '/Index',
+                type: 'GET',
+                success: function(result) {
                     $('#partial-container').html(result);
+
+                        $.ajax({
+                        url: '/Categories/GetParentCategories',
+                        type: 'GET',
+                        success: function(response){
+                            console.log('ajax');
+                            console.log(response);
+                            var parentCategoriesSelect = $('#parentCategories');
+                                response.forEach(function(category){
+                                var option = new Option( category.name, category.id);
+                                parentCategoriesSelect.append($(option));
+                            });
+                        }
+                    });
                 }
             });
         }

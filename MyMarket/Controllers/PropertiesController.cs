@@ -17,7 +17,7 @@ namespace MyMarket.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return PartialView("~/Views/Shared/Settings/_Properties.cshtml", await this._propertyService.GetPropertyViewModels());
+            return PartialView("~/Views/Shared/Settings/_Properties.cshtml", await this._propertyService.GetPropertiesWithCategories());
         }
 
         public IActionResult Properties(List<PropertyViewModel> properties)

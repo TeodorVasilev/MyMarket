@@ -10,7 +10,7 @@ var browser = new ScrapingBrowser();
 browser.Encoding = Encoding.UTF8;
 Console.OutputEncoding = Encoding.UTF8;
 
-var homepage = browser.NavigateToPage(new Uri("https://prodavash.bg/sitemap"));
+var homepage = browser.NavigateToPage(new Uri(""));
 
 var html = homepage.Html.CssSelect(".filled-blue .row");
 var categoriesHtml = html.First();
@@ -34,23 +34,26 @@ for (int i = 0; i < categoriesHtml.ChildNodes.Count; i++)
                     if (category.OuterHtml.Contains("parentCat"))
                     {
                         parent = category.InnerText.Trim();
-                        categorySubCategories.Add(parent, new Dictionary<string, List<string>>());
+                        if (!categorySubCategories.ContainsKey(parent))
+                        {
+                            categorySubCategories.Add(parent, new Dictionary<string, List<string>>());
+                        }
                     }
                     if (category.OuterHtml.Contains("childCat"))
                     {
-                        if(category.ChildNodes.Count > 3)
+                        if (category.ChildNodes.Count > 3)
                         {
                             string categoryName = category.CssSelect("a").First().InnerText.Trim();
-
-                            categorySubCategories[parent].Add(categoryName, new List<string>());
+                            if (!categorySubCategories[parent].ContainsKey(categoryName))
+                            {
+                                categorySubCategories[parent].Add(categoryName, new List<string>());
+                            }
 
                             for (int s = 0; s < category.ChildNodes.Count; s++)
                             {
                                 var categorySubNode = category.ChildNodes[s];
-
                                 var text = categorySubNode.InnerText.Trim();
-
-                                if(text != "")
+                                if (text != "" && !categorySubCategories[parent][categoryName].Contains(text))
                                 {
                                     categorySubCategories[parent][categoryName].Add(text);
                                 }
@@ -58,7 +61,11 @@ for (int i = 0; i < categoriesHtml.ChildNodes.Count; i++)
                         }
                         else
                         {
-                            categorySubCategories[parent].Add(category.InnerText.Trim(), new List<string>());
+                            var childCategoryName = category.InnerText.Trim();
+                            if (!categorySubCategories[parent].ContainsKey(childCategoryName))
+                            {
+                                categorySubCategories[parent].Add(childCategoryName, new List<string>());
+                            }
                         }
                     }
                 }
@@ -66,6 +73,7 @@ for (int i = 0; i < categoriesHtml.ChildNodes.Count; i++)
         }
     }
 }
+
 
 using (var context = new ApplicationDbContext())
 {
@@ -82,33 +90,31 @@ using (var context = new ApplicationDbContext())
 
         foreach (var subKvp in kvp.Value)
         {
-            var subCategory = context.Categories.FirstOrDefault(c => c.Name == subKvp.Key && c.ParentId == category.Id);
+            var subCategory = context.Categories.FirstOrDefault(c => c.Name == subKvp.Key);
             if (subCategory == null)
             {
                 subCategory = new Category() { Name = subKvp.Key, ParentId = category.Id };
                 context.Categories.Add(subCategory);
                 context.SaveChanges();
-                Console.WriteLine($"--{category.Name}");
-
             }
 
             if (subKvp.Value.Count > 0)
             {
                 foreach (var subValue in subKvp.Value)
                 {
-                    var subSubCategory = context.Categories.FirstOrDefault(c => c.Name == subValue && c.ParentId == subCategory.Id);
+                    var subSubCategory = context.Categories.FirstOrDefault(c => c.Name == subValue);
                     if (subSubCategory == null)
                     {
                         subSubCategory = new Category() { Name = subValue, ParentId = subCategory.Id };
                         context.Categories.Add(subSubCategory);
                         context.SaveChanges();
-                        Console.WriteLine($"-- --{category.Name}");
                     }
                 }
             }
         }
     }
 }
+
 
 foreach (var kvp in categorySubCategories)
 {

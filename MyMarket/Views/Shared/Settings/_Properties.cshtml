@@ -19,6 +19,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Име</th>
+                            <th>Категория</th>
                             <th>Действия</th>
                         </tr>
                     </thead>
@@ -28,6 +29,28 @@
                             <tr>
                                 <td>@property.Id</td>
                                 <td>@property.Name</td>
+                                <td>
+                                    @if(property.Categories.Count > 1)
+                                    {
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton-@property.Id" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            Категории
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton-@property.Id">
+                                            @foreach (var category in property.Categories)
+                                            {
+                                                <li><a class="dropdown-item" href="#">@category.Id - @category.Name</a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                    }
+                                    else
+                                    {
+                                        <div>
+                                            @property.Categories[0].Name
+                                        </div>
+                                    }
+                                </td>
                                 <td>
                                     <a class="btn btn-sm btn-warning" href="#">Edit</a>
                                     <a class="btn btn-sm btn-danger delete" href="#" data-controller="Properties" data-id="@property.Id">Delete</a>

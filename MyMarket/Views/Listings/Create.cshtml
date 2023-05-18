@@ -1,0 +1,129 @@
+﻿<form method="POST" id="formToSubmit">
+    <input type="hidden" name="userId" value="">
+    <div class="mb-3 row mt-3">
+        <label for="title" class="col-sm-2 col-form-label">Title *</label>
+        <div class="col-sm-10">
+            <input type="text" name="title" class="form-control" placeholder="Enter a title..." required>
+            <div id="titleError" class="form-text text-danger d-none">This field is required!</div>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="category_id" class="col-sm-2 col-form-label">Category *</label>
+        <div class="col-sm-10">
+            <select id="category_id" class="form-control" required>
+            </select>
+            <div id="categoryError" class="form-text text-danger d-none">This field is required!</div>
+        </div>
+    </div>
+        <div id="propertiesPlaceholder" class="col-12">
+        </div>
+    <div class="mb-3 row">
+        <label for="description" class="col-sm-2 col-form-label">Description *</label>
+        <div class="col-sm-10">
+            <textarea id="description" class="form-control" name="description" rows="3" required></textarea>
+            <div id="descriptionError" class="form-text text-danger d-none">This field is required!</div>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="phone" class="col-sm-2 col-form-label">Phone number *</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter phone number" required>
+            <div id="phoneError" class="form-text text-danger d-none">This field is required!</div>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <div class="col-sm-2"></div>
+    </div>
+    <div class="mb-3 row">
+        <label for="price" class="col-sm-2 col-form-label">Price *</label>
+        <div class="col-sm-10">
+            <input type="number" id="price" name="price" step="0.01" class="form-control" required>
+            <div id="priceError" class="form-text text-danger d-none">This field is required!</div>
+        </div>
+    </div>
+    <div class="col-md-12 text-start mb-3">
+        <label for="price" class="col-sm-2 col-form-label">Photos *</label>
+        <button type="button" style="font-weight:600;border:1px solid silver;background-color:white;background-image:url('/images/btn-bg.png');background-size:80% 80%;background-position:center center;width:100px;height:100px;background-repeat:no-repeat;" class="btn change-photo-btn" id="newImageToUpload">
+            Add photos
+        </button>
+        <span id="imageError" class="d-none" style="color:red;font-size:12px;">This field is required!</span>
+        <div id="moreImagesToUpload">
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-10">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="priceNegotiable" name="price_negotiable" value="1">
+                <label class="form-check-label" for="priceNegotiable">
+                    Price negotiable
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="mb-3 row">
+        <label for="city_id" class="col-sm-2 col-form-label">Location *</label>
+        <div class="col-sm-10">
+            <select name="city_id" id="city_id" class="form-control" required>
+                <option value="">--- Select ---</option>
+            </select>
+            <div id="locationError" class="form-text text-danger d-none">This field is required!</div>
+            <div class="form-check mt-3">
+                <input class="form-check-input" type="checkbox" id="is_private_person" name="is_private_person" value="1" checked>
+                <label class="form-check-label" for="is_private_person">Private sale</label>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="mb-3 row">
+    <div class="col-sm-10 offset-sm-2">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</div>
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen" role="document">
+        <div class="modal-content" style="padding: 15px; padding-top: 0;">
+            <div class="modal-header">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row" id="step1">
+                    <div class="col">
+                        <div class="text-center">
+                            <h5>Select Category</h5>
+                        </div>
+                        <div id="parentCategory" class="category-list">
+                            <ul>
+                                <!-- Items filled by JS -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="text-center">
+                            <h5 id="cat-parent"></h5>
+                        </div>
+                        <div id="childCategory" class="category-list">
+                            <ul>
+                                <!-- Items filled by JS -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="text-center">
+                            <h5 id="cat-child"></h5>
+                        </div>
+                        <div id="grandChildCategory" class="category-list">
+                            <ul>
+                                <!-- Items filled by JS -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

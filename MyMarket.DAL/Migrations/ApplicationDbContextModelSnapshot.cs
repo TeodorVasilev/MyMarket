@@ -425,6 +425,9 @@ namespace MyMarket.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
+                    b.Property<int?>("ParentId")
+                        .HasColumnType("int");
+
                     b.Property<int>("PropertyId")
                         .HasColumnType("int");
 
@@ -433,6 +436,8 @@ namespace MyMarket.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
 
                     b.HasIndex("PropertyId");
 
@@ -448,15 +453,15 @@ namespace MyMarket.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "14d60365-180c-40b3-a638-e9691c30ba26",
-                            ConcurrencyStamp = "e4db1dc1-9b6b-4c3b-96b9-9e1a98bdec3e",
+                            Id = "69d608fd-aae3-4963-bcbd-c27f3ca05a5d",
+                            ConcurrencyStamp = "d5c6e1a6-b658-4012-a1f3-b9ee70ba970e",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "952fca30-09b6-4ea2-88e1-ec7d64071cbd",
-                            ConcurrencyStamp = "9554dec1-8f9e-418c-a774-c22e8ecb091d",
+                            Id = "7373d5ed-c7ed-4e22-a08e-1f56154d8c2d",
+                            ConcurrencyStamp = "ef47230c-822a-4f0f-b656-acb2ade46c65",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -634,11 +639,18 @@ namespace MyMarket.DAL.Migrations
 
             modelBuilder.Entity("MyMarket.DAL.Models.Listings.StaticOption", b =>
                 {
+                    b.HasOne("MyMarket.DAL.Models.Listings.StaticOption", "Parent")
+                        .WithMany("Children")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("MyMarket.DAL.Models.Listings.Property", "Property")
                         .WithMany("StaticOptions")
                         .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Parent");
 
                     b.Navigation("Property");
                 });
@@ -677,6 +689,11 @@ namespace MyMarket.DAL.Migrations
                     b.Navigation("PropertyOptions");
 
                     b.Navigation("StaticOptions");
+                });
+
+            modelBuilder.Entity("MyMarket.DAL.Models.Listings.StaticOption", b =>
+                {
+                    b.Navigation("Children");
                 });
 
             modelBuilder.Entity("MyMarket.DAL.Models.Account.User", b =>

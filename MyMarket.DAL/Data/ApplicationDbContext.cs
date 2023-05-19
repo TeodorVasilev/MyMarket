@@ -73,6 +73,7 @@ namespace MyMarket.DAL.Data
             builder.ApplyConfiguration(new CategoryPropertyConfiguration());
             builder.ApplyConfiguration(new ListingOptionConfiguration());
             builder.ApplyConfiguration(new PropertyOptionConfiguration());
+            builder.ApplyConfiguration(new StaticOptionConfiguration());
         }
     }
 }

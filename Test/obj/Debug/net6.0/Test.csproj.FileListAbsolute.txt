@@ -75,3 +75,9 @@ C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\runtimes\win\lib\netcoreap
 C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\MyMarket.DAL.dll
 C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\MyMarket.DAL.pdb
 C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\selenium-manager\linux\selenium-manager
+C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\selenium-manager\macos\selenium-manager
+C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\selenium-manager\windows\selenium-manager.exe
+C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\WebDriver.Support.dll
+C:\Users\npc13\Desktop\MyMarket\Test\bin\Debug\net6.0\WebDriver.dll

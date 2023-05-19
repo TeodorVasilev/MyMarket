@@ -89,26 +89,32 @@
                 success: function(response) {
                     console.log(response);
                     $('#propertiesPlaceholder').empty();
-        
-                    response.forEach(function(property) {
+            
+                    response.forEach(function(property, index) {
+                        var columnDiv = $('<div>').addClass(index % 2 == 0 ? 'col-md-6' : 'col-md-6');
+                        var label = $('<label>').attr('for', 'property_' + property.id)
+                                               .text(property.name);
+                        columnDiv.append(label);
+                        
                         if (property.options && property.options.length > 0) {
                             var select = $('<select>').attr('id', 'property_' + property.id)
                                                      .attr('name', 'property_' + property.id)
                                                      .addClass('form-control');
         
                             property.options.forEach(function(option) {
-                                select.append($('<option>').attr('value', option.value).text(option.text));
+                                select.append($('<option>').attr('value', option.value).text(option.value));
                             });
         
-                            $('#propertiesPlaceholder').append(select);
-        
+                            columnDiv.append(select);
                         } else {
                             var input = $('<input>').attr('id', 'property_' + property.id)
                                                    .attr('name', 'property_' + property.id)
                                                    .addClass('form-control');
         
-                            $('#propertiesPlaceholder').append(input);
+                            columnDiv.append(input);
                         }
+        
+                        $('#propertiesPlaceholder').append(columnDiv);
                     });
                 }
             });

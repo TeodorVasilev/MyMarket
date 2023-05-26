@@ -6,7 +6,7 @@
         <div class="input-group my-2">
             <form id="search" class="d-flex" action="@Url.Action("Search", "Search")">
                 <input type="hidden" id="search-type" value="categories" />
-                <input type="text" id="search-term" name="term" class="form-control" placeholder="Търсене...">
+                <input type="text" id="search-term" name="term" class="form-control" placeholder="Search...">
                 <div class="input-group-append">
                     <input class="btn btn-primary ms-2" type="submit"/>
                 </div>
@@ -18,9 +18,9 @@
                     <thead class="sticky-top bg-white">
                         <tr>
                             <th>ID</th>
-                            <th>Име</th>
-                            <th>Основна категория</th>
-                            <th>Действия</th>
+                            <th>Name</th>
+                            <th>Parent category</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,14 +42,14 @@
         </div>
     </div>
     <div class="col-md-3">
-        <h4>Създаване на нова категория</h4>
+        <h4>Creating new category</h4>
         <form method="post" data-controller="Categories" class="create">
             <div class="form-group">
-                <label for="categoryName">Име</label>
+                <label for="categoryName">Name</label>
                 <input type="text" name="name" class="form-control" id="categoryName">
             </div>
             <div class="form-group">
-                <label for="parentCategory">Основна категория</label>
+                <label for="parentCategory">Parent category</label>
                 <select name="parentid" class="form-control" id="parentCategory">
                     <option value="0">-- Select a category --</option>
                     @foreach(var category in @Model)

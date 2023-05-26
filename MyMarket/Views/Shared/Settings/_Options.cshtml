@@ -6,7 +6,7 @@
         <div class="input-group my-2">
             <form id="search" class="d-flex" action="@Url.Action("Search", "Search")">
                 <input type="hidden" id="search-type" value="options" />
-                <input type="text" id="search-term" name="term" class="form-control" placeholder="Търсене...">
+                <input type="text" id="search-term" name="term" class="form-control" placeholder="Search...">
                 <div class="input-group-append">
                     <input class="btn btn-primary ms-2" type="submit" />
                 </div>
@@ -18,10 +18,10 @@
                     <thead class="sticky-top bg-white">
                         <tr>
                             <th>ID</th>
-                            <th>Име</th>
-                            <th>Свойство ID</th>
-                            <th>Свойство</th>
-                            <th>Действия</th>
+                            <th>Name</th>
+                            <th>Property</th>
+                            <th>Parent</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,8 +30,8 @@
                             <tr>
                                 <td>@option.Id</td>
                                 <td>@option.Value</td>
-                                <td>@option.PropertyId</td>
                                 <td>@option.Property</td>
+                                <td>@option.ParentName</td>
                                 <td>
                                     <a class="btn btn-sm btn-warning" href="#">Edit</a>
                                     <a class="btn btn-sm btn-danger delete" href="#" data-controller="Options" data-id="@option.Id">Delete</a>
@@ -44,30 +44,36 @@
         </div>
     </div>
     <div class="col-md-3">
-        <h4>Създаване на нова статична опция</h4>
+        <h4>Create new static option</h4>
         <form class="create" method="post" data-controller="Options">
             <div class="form-group">
-                <label for="value">Име</label>
+                <label for="value">Name</label>
                 <input type="text" name="value" class="form-control" id="optionName">
             </div>
             <div class="form-group">
-                <label for="name">Основна Категория</label>
+                <label for="name">Parent category</label>
                 <select id="option-parent-categories" class="form-control">
-                    <option>Изберете основна категория</option>
+                    <option>Choose parent category</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="name">Подкатегория</label>
+                <label for="name">Subcategory</label>
                 <select id="child-categories" class="form-control">
                 </select>
             </div>
             <div class="form-group">
-                <label for="property">Свойство</label>
+                <label for="property">Property</label>
                 <select name="propertyId" id="properties" class="form-control">
-                    <option>Изберете свойство</option>
+                    <option>Choose property</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary mt-2">Създай</button>
+            <div class="form-group">
+                <label for="property">Parent option</label>
+                <select disabled id="parentoptions" class="form-control">
+                    <option>Choose parent option</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary mt-2">Create</button>
         </form>
     </div>
 </div>

@@ -42,7 +42,7 @@ namespace MyMarket.Service.OptionService
 
         public async Task<List<StaticOption>> GetOptions()
         {
-            return await this._context.StaticOptions.ToListAsync();
+            return await this._context.StaticOptions.Include(o => o.Property).ToListAsync();
         }
 
         public async Task<StaticOptionViewModel> GetOptionViewModel(int id)

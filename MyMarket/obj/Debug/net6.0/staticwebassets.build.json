@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "dKq0sjbnk7RRs6TXX2PlY5xWAHVCU1ZkYkk9PtOsNto=",
+  "Hash": "yizECxBwD0vWS+vyxgM4HI04HtwfxIbTWZFd5ouOvBk=",
   "Source": "MyMarket",
   "BasePath": "_content/MyMarket",
   "Mode": "Default",
@@ -1071,6 +1071,23 @@
       "OriginalItemSpec": "C:\\Users\\npc13\\Desktop\\MyMarket\\MyMarket\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\MyMarket.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\npc13\\Desktop\\MyMarket\\MyMarket\\wwwroot\\cities\\bg.json",
+      "SourceId": "MyMarket",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\npc13\\Desktop\\MyMarket\\MyMarket\\wwwroot\\",
+      "BasePath": "_content/MyMarket",
+      "RelativePath": "cities/bg.json",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\cities\\bg.json"
+    },
+    {
       "Identity": "C:\\Users\\npc13\\Desktop\\MyMarket\\MyMarket\\wwwroot\\css\\site.css",
       "SourceId": "MyMarket",
       "SourceType": "Discovered",
@@ -2089,6 +2106,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\npc13\\Desktop\\MyMarket\\MyMarket\\wwwroot\\uploads\\1280px-BMW_X5_II_20090913_front.jpg",
+      "SourceId": "MyMarket",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\npc13\\Desktop\\MyMarket\\MyMarket\\wwwroot\\",
+      "BasePath": "_content/MyMarket",
+      "RelativePath": "uploads/1280px-BMW_X5_II_20090913_front.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\1280px-BMW_X5_II_20090913_front.jpg"
     }
   ]
 }

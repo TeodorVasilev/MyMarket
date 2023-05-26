@@ -19,21 +19,21 @@
                 <div class="navbar-collapse collapse">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-controller="Users" asp-action="Index">Табло</a>
+                            <a class="nav-link text-light" asp-controller="Users" asp-action="Index">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-controller="Users" asp-action="Index">Потребители</a>
+                            <a class="nav-link text-light" asp-controller="Users" asp-action="Index">Users</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-controller="Announcements" asp-action="Index">Обяви</a>
+                            <a class="nav-link text-light" asp-controller="Announcements" asp-action="Index">Ads</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-controller="Admin" asp-action="Settings">Настройки</a>
+                            <a class="nav-link text-light" asp-controller="Admin" asp-action="Settings">Settings</a>
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-controller="Home" asp-action="Index">Назад</a>
+                            <a class="nav-link text-light" asp-controller="Home" asp-action="Index">Back</a>
                         </li>
                     </ul>
                 </div>
@@ -157,7 +157,6 @@
         $(function () {
             $('.option-link').on('click', function(e) {
                 e.preventDefault();
-                console.log('options');
                 var url = $(this).data('url');
                 $('#partial-container').load(url, function () {
                     $.ajax({
@@ -232,7 +231,7 @@
                 obj[item.name] = item.value;
                 return obj;
             }, {});
-
+            console.log(formData);
             console.log(JSON.stringify(formData));
 
             formData.CategoriesIds = selectedCheckboxes;

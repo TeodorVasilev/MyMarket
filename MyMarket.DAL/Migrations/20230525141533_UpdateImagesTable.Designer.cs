@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyMarket.DAL.Data;
 
@@ -11,9 +12,10 @@ using MyMarket.DAL.Data;
 namespace MyMarket.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230525141533_UpdateImagesTable")]
+    partial class UpdateImagesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -370,6 +372,7 @@ namespace MyMarket.DAL.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Value")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -452,15 +455,15 @@ namespace MyMarket.DAL.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "cd925b8c-e7ed-4714-a8d2-acd111f0da37",
-                            ConcurrencyStamp = "3452cdd4-204a-4207-9bc6-0f8f98f9dc56",
+                            Id = "2b87de5b-932d-48f7-b368-750213c07cec",
+                            ConcurrencyStamp = "78fc0d06-b77c-4c1d-a549-962f44defa4e",
                             Name = "User",
                             NormalizedName = "USER"
                         },
                         new
                         {
-                            Id = "26203f9a-d9e9-4fea-a108-8416c6c05feb",
-                            ConcurrencyStamp = "d080ab43-6695-417e-86ee-6614c2958f77",
+                            Id = "3f78da80-7f65-462d-9f4c-cadc06ab8885",
+                            ConcurrencyStamp = "86374e14-1206-4660-bf96-45be16626f2d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });

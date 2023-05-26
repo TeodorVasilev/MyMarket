@@ -1,6 +1,10 @@
 /* _content/MyMarket/Views/Shared/_Layout.cshtml.rz.scp.css */
 /* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
+:root[b-lybiw7fq04] {
+    --main-color: #B5E941;
+    --secondary-color: #326916;
+}
 
 a.navbar-brand[b-lybiw7fq04] {
   white-space: normal;
@@ -8,8 +12,8 @@ a.navbar-brand[b-lybiw7fq04] {
   word-break: break-all;
 }
 
-a[b-lybiw7fq04] {
-  color: #0077cc;
+.my-account a[b-lybiw7fq04]{
+    color: var(--secondary-color) !important;
 }
 
 .btn-primary[b-lybiw7fq04] {
@@ -27,6 +31,7 @@ a[b-lybiw7fq04] {
 .border-top[b-lybiw7fq04] {
   border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom[b-lybiw7fq04] {
   border-bottom: 1px solid #e5e5e5;
 }

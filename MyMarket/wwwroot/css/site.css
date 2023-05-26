@@ -1,10 +1,10 @@
 :root {
-    --main-color: #505ce2;
-    --secondary-color: #FF7700;
+    --main-color: #B5E941;
+    --secondary-color: #326916;
 }
 
 .lightblue {
-    background-color: #e3ebf0;
+    background-color: lightgray;
 }
 
 
@@ -19,16 +19,19 @@
 
     .logo a{
         text-decoration: none;
+        color: var(--main-color) !important;
     }
 
 /* LOGO END */
-
-.fav {
-    width: 32px;
-    height: 32px;
-    border: 1px solid red;
+/*MY ACC*/
+.my-account a{
+    color: var(--secondary-color) !important;
 }
 
+.favourites a{
+    color: var(--secondary-color) !important;
+}
+/*MY ACC END*/
 /* MAIN BUTTON */
 .main-btn {
     text-decoration: none;
@@ -45,6 +48,16 @@
         opacity: 0.8;
         color: white;
     }
+
+.logout {
+    color: var(--secondary-color) !important;
+    border-color: var(--secondary-color) !important;
+}
+
+.logout:hover{
+    color: white !important;
+    background: var(--secondary-color);
+}
 /* MAIN BUTTON END */
 
 /* SEARCH */
@@ -53,8 +66,21 @@
     background-color: var(--main-color);
 }
 /* SEARCH END */
+/*TOP CATEGORIES*/
+.main-category a{
+    color: black;
+}
+/*TOP CATEGORIES END*/
+/*LISTING*/
+.listing{
+    color: black;
+}
 
-
+.listing:hover{
+    opacity: 0.7;
+    color:black;
+}
+/*LISTING END*/
 /*BOTTOM CATEGORIES LIST*/
 .categories-list{
     list-style-type: none;
@@ -74,12 +100,13 @@
     color: var(--secondary-color);
 }
 
-.child-category a{
+.child-category a {
     text-decoration: none;
+    color: var(--secondary-color);
 }
 
 .child-category a:hover {
-    color: var(--secondary-color);
+    opacity: 0.7;
 }
 
 /*BOTTOM CATEGORIES LIST END*/

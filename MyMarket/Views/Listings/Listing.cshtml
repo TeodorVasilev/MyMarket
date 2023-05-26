@@ -1,0 +1,53 @@
+﻿@using MyMarket.DAL.ViewModels.Listings
+@model DisplayListingViewModel
+<p>@Model.Name</p>
+<p>@Model.Address</p>
+<p>@Model.Description</p>
+<p>@Model.Price</p>
+<p>@Model.Phone</p>
+@foreach(var img in Model.ImagePaths)
+{
+    <img src="/@img" class="img-fluid" alt="Main picture">
+}
+@*<div class="row">
+    <div class="col">
+            <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">Category 1</a></li>
+            <li class="breadcrumb-item"><a href="#">Category 2</a></li>
+        </ol>
+    </nav>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-8 ps-0">
+@if (Model != null && Model.ImagePaths.Any())
+{
+    <p>@Model.ImagePaths[0]</p>
+}*@
+            @*<img src="@Model.ImagePaths[0]" class="img-fluid" alt="Main picture">*@
+@*            <h2>@Model.Name</h2>
+            <p>@Model.Description</p>
+
+            <div class="row">
+                <div class="col-4">
+                    <img src="pic1.jpg" class="img-fluid" alt="Picture 1">
+                </div>
+                <div class="col-4">
+                    <img src="pic2.jpg" class="img-fluid" alt="Picture 2">
+                </div>
+                <div class="col-4">
+                    <img src="pic3.jpg" class="img-fluid" alt="Picture 3">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-4 pe-0">
+            <h2>Price: @Model.Price<span>$</span></h2>
+
+            <h3>User information:</h3>
+            <p>Username: User123</p>
+            <p>Email: user123@example.com</p>
+        </div>
+    </div>*@

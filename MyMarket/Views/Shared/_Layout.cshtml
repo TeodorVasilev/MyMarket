@@ -32,22 +32,22 @@
                     </div>
                     @Html.Partial("_LoginPartial")
                     <div class="add-button">
-                        <a class="main-btn" asp-action="Create" asp-controller="Listings">+ Добави обява</a>
+                        <a class="main-btn" asp-action="Create" asp-controller="Listings">+ INSERT</a>
                     </div>
                 </div>
             </div>
             <form>
                 <div class="row lightblue">
                     <div class="col-md-6 col-12 p-md-4 p-2 mt-2 mt-md-0 d-flex">
-                        <input type="text" class="form-control" placeholder="32583 обяви от цяла България">
+                        <input type="text" class="form-control" placeholder="32583 ads nationwide">
                     </div>
                     <div class="col-md-3 col-12 p-md-4 p-2 d-flex">
                         <select class="form-control">
-                            <option>Цяла България</option>
+                            <option>Nationwide</option>
                         </select>
                     </div>
                     <div class="col-md-3 col-12 p-md-4 p-2">
-                        <button class="main-btn form-control text-center search-btn">Търси</button>
+                        <button class="main-btn form-control text-center search-btn">SEARCH</button>
                     </div>
                 </div>
             </form>
@@ -71,53 +71,108 @@
             crossorigin="anonymous">
     </script>
     <script>
+        //add more images
+        $('#newImageToUpload').on('click', function(e) {
+            var newFileInput = $('<input>').attr('type', 'file')
+                                           .attr('name', 'Images')
+                                           .addClass('form-control');
+            $('#moreImagesToUpload').append(newFileInput);
+        });
+
+
+        //load cities
+        function loadCitiesIntoSelect() {
+            $.getJSON("/cities/bg.json", function(data) {
+                var select = $("#citySelect");
+                console.log(data);
+                $.each(data, function(index, value) {
+                    select.append(new Option(value.city, value.city));
+                });
+            });
+        }
+
+        $(document).ready(function() {
+            loadCitiesIntoSelect();
+        });
+
         //load properties in the container when a category is selected
         $('body').on('click', '.childCategory, .grandChildCategory', function(e) {
             e.preventDefault();
             var categoryId = $(this).data('id');
             loadProperties(categoryId);
 
-            $('#categoryModal').modal('hide');
+            //$('#categoryModal').modal('hide');
+        });
+
+        //filter models by make id for category cars
+        var childOptions = [];
+
+        $('body').on('change', '#property_4', function() {
+            var selectedOptionValue = $(this).find(':selected').attr('data-id');
+
+            var filteredOptions = childOptions.filter(function(option) {
+                return option.parentId == selectedOptionValue;
+            });
+
+            $("#property_5").empty();
+
+            filteredOptions.forEach(function(option) {
+                $("#property_5").append(new Option(option.value, option.value));
+            });
         });
 
         //load properties
         function loadProperties(categoryId) {
-            $.ajax({
-                url: '/Properties/GetPropertiesByCategoryId',
-                type: 'GET',
-                data: { categoryId: categoryId },
-                success: function(response) {
-                    console.log(response);
-                    $('#propertiesPlaceholder').empty();
-            
-                    response.forEach(function(property, index) {
-                        var columnDiv = $('<div>').addClass(index % 2 == 0 ? 'col-md-6' : 'col-md-6');
-                        var label = $('<label>').attr('for', 'property_' + property.id)
-                                               .text(property.name);
-                        columnDiv.append(label);
-                        
-                        if (property.options && property.options.length > 0) {
-                            var select = $('<select>').attr('id', 'property_' + property.id)
-                                                     .attr('name', 'property_' + property.id)
-                                                     .addClass('form-control');
+          $.ajax({
+            url: '/Properties/GetPropertiesByCategoryId',
+            type: 'GET',
+            data: { categoryId: categoryId },
+            success: function(response) {
+              console.log(response);
+              $('#propertiesPlaceholder').empty();
         
-                            property.options.forEach(function(option) {
-                                select.append($('<option>').attr('value', option.value).text(option.value));
-                            });
+              response.forEach(function(property, index) {
+                var columnDiv = $('<div>').addClass(index % 2 == 0 ? 'col-md-6' : 'col-md-6');
+                var label = $('<label>').attr('for', 'property_' + property.id)
+                                       .text(property.name);
+                columnDiv.append(label);
         
-                            columnDiv.append(select);
-                        } else {
-                            var input = $('<input>').attr('id', 'property_' + property.id)
-                                                   .attr('name', 'property_' + property.id)
-                                                   .addClass('form-control');
+                if (property.options && property.options.length > 0) {
+                  var select = $('<select>').attr('id', 'property_' + property.id)
+                                           .attr('name', 'Options[' + index + '].Value')
+                                           .addClass('form-control');
         
-                            columnDiv.append(input);
-                        }
+                  property.options.forEach(function(option) {
+                    if(option.parentId == 0){
+                      select.append($('<option>').attr('value', option.value).attr('data-id', option.id).text(option.value));
+                    } else {
+                      childOptions.push(option);
+                    }
+                  });
         
-                        $('#propertiesPlaceholder').append(columnDiv);
-                    });
+                  var hiddenInput = $('<input>').attr('type', 'hidden')
+                                               .attr('name', 'Options[' + index + '].PropertyId')
+                                               .attr('value', property.id); 
+        
+                  columnDiv.append(select);
+                  columnDiv.append(hiddenInput);
+                } else {
+                    var input = $('<input>').attr('id', 'property_' + property.id)
+                                           .attr('name', 'Options[' + index + '].Value')
+                                           .addClass('form-control');
+        
+                    var hiddenInput = $('<input>').attr('type', 'hidden')
+                                                 .attr('name', 'Options[' + index + '].PropertyId')
+                                                 .attr('value', property.id);
+        
+                    columnDiv.append(input);
+                    columnDiv.append(hiddenInput);
                 }
-            });
+        
+                $('#propertiesPlaceholder').append(columnDiv);
+              });
+            }
+          });
         }
 
         //open modal to select category for listing creation

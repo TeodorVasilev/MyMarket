@@ -1,9 +1,13 @@
-﻿using MyMarket.DAL.ViewModels.Images;
-
-namespace MyMarket.DAL.ViewModels.Listings
+﻿namespace MyMarket.DAL.ViewModels.Listings
 {
-    public class ListingViewModel
+    public class DisplayListingViewModel
     {
+        public DisplayListingViewModel()
+        {
+            this.Options = new List<OptionViewModel>();
+            this.ImagePaths = new List<string>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
@@ -14,7 +18,7 @@ namespace MyMarket.DAL.ViewModels.Listings
         public bool PrivateSale { get; set; }
         public int CategoryId { get; set; }
         public string UserId { get; set; }
-        public virtual ICollection<OptionViewModel> Options { get; set; }
-        public virtual ICollection<ImageViewModel> Images { get; set; }
+        public ICollection<OptionViewModel> Options { get; set; }
+        public List<string> ImagePaths { get; set; }
     }
 }

@@ -1,16 +1,21 @@
-﻿<form method="POST" id="formToSubmit">
-    <input type="hidden" name="userId" value="">
+﻿@using System.Security.Claims
+@{
+    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+}
+
+<form method="POST" id="formToSubmit" asp-controller="Listings" asp-action="CreateStore" enctype="multipart/form-data">
+    <input type="hidden" name="userId" value="@userId">
     <div class="mb-3 row mt-3">
         <label for="title" class="col-sm-2 col-form-label">Title *</label>
         <div class="col-sm-10">
-            <input type="text" name="title" class="form-control" placeholder="Enter a title..." required>
+            <input type="text" name="name" class="form-control" placeholder="Enter a title..." required>
             <div id="titleError" class="form-text text-danger d-none">This field is required!</div>
         </div>
     </div>
     <div class="mb-3 row">
         <label for="category_id" class="col-sm-2 col-form-label">Category *</label>
         <div class="col-sm-10">
-            <select id="category_id" class="form-control" required>
+            <select id="category_id" name="categoryId" class="form-control" required>
             </select>
             <div id="categoryError" class="form-text text-danger d-none">This field is required!</div>
         </div>
@@ -45,43 +50,47 @@
     </div>
     <div class="col-md-12 text-start mb-3">
         <label for="price" class="col-sm-2 col-form-label">Photos *</label>
-        <button type="button" style="font-weight:600;border:1px solid silver;background-color:white;background-image:url('/images/btn-bg.png');background-size:80% 80%;background-position:center center;width:100px;height:100px;background-repeat:no-repeat;" class="btn change-photo-btn" id="newImageToUpload">
-            Add photos
-        </button>
+        <button type="button" 
+        style="font-weight:600;border:1px solid silver;background-color:white;background-image:url('/images/btn-bg.png');
+            background-size:80% 80%;background-position:center center;width:100px;height:100px;background-repeat:no-repeat;" 
+            class="btn change-photo-btn" id="newImageToUpload">Add photos</button>
+        <input type="file" name="Images[]" style="display: none;" />
         <span id="imageError" class="d-none" style="color:red;font-size:12px;">This field is required!</span>
         <div id="moreImagesToUpload">
         </div>
     </div>
     <div class="mb-3 row">
         <div class="col-sm-2"></div>
-        <div class="col-sm-10">
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="priceNegotiable" name="price_negotiable" value="1">
-                <label class="form-check-label" for="priceNegotiable">
-                    Price negotiable
-                </label>
-            </div>
-        </div>
+<div class="col-sm-10">
+    <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="priceNegotiable" name="PriceNegotiable" value="true" />
+    <label class="form-check-label" for="priceNegotiable">
+        Price negotiable
+    </label>
+    <input type="hidden" name="PriceNegotiable" value="false" />
+    </div>
+</div>
     </div>
     <div class="mb-3 row">
         <label for="city_id" class="col-sm-2 col-form-label">Location *</label>
         <div class="col-sm-10">
-            <select name="city_id" id="city_id" class="form-control" required>
+            <select name="address" id="citySelect" class="form-control" required>
                 <option value="">--- Select ---</option>
             </select>
             <div id="locationError" class="form-text text-danger d-none">This field is required!</div>
-            <div class="form-check mt-3">
-                <input class="form-check-input" type="checkbox" id="is_private_person" name="is_private_person" value="1" checked>
-                <label class="form-check-label" for="is_private_person">Private sale</label>
-            </div>
+<div class="form-check mt-3">
+    <input class="form-check-input" type="checkbox" id="is_private_person" name="PrivateSale" value="true" checked />
+    <label class="form-check-label" for="is_private_person">Private sale</label>
+    <input type="hidden" name="PrivateSale" value="false" />
+</div>
         </div>
     </div>
-</form>
-<div class="mb-3 row">
+    <div class="mb-3 row">
     <div class="col-sm-10 offset-sm-2">
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </div>
+</form>
 <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen" role="document">
         <div class="modal-content" style="padding: 15px; padding-top: 0;">
@@ -98,7 +107,6 @@
                         </div>
                         <div id="parentCategory" class="category-list">
                             <ul>
-                                <!-- Items filled by JS -->
                             </ul>
                         </div>
                     </div>
@@ -108,7 +116,6 @@
                         </div>
                         <div id="childCategory" class="category-list">
                             <ul>
-                                <!-- Items filled by JS -->
                             </ul>
                         </div>
                     </div>
@@ -118,7 +125,6 @@
                         </div>
                         <div id="grandChildCategory" class="category-list">
                             <ul>
-                                <!-- Items filled by JS -->
                             </ul>
                         </div>
                     </div>

@@ -24,15 +24,6 @@ namespace MyMarket.Service.ListingService
             return await this._context.Listings.Include(l => l.Options).Include(l => l.Images).ToListAsync();
         }
 
-        public async Task<Listing> GetListing(int id)
-        {
-            return await this._context.Listings
-                .Include(l => l.Images)
-                .Include(l => l.Options)
-                .ThenInclude(o => o.Property)
-                .FirstOrDefaultAsync(l => l.Id == id);
-        }
-
         public async Task Create(CreateListingViewModel formData)
         {
             var listing = new Listing()
@@ -115,17 +106,41 @@ namespace MyMarket.Service.ListingService
             return this._mappingService.Map<List<Listing>, List<DisplayListingViewModel>>(listings);
         }
 
-        public async Task<DisplayListingViewModel> GetListingViewModel(int id)
-        {
-            var listing = await this.GetListing(id);
-            var viewModel = this._mappingService.Map<Listing, DisplayListingViewModel>(listing);
-            //return this._mappingService.Map<Listing, DisplayListingViewModel>(listing);
-            return viewModel;
-        }
-
         public Task Delete(int id)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<DisplayListingViewModel> GetListingViewModel(int id)
+        {
+            var listing = await this.GetListing(id);
+            return this._mappingService.Map<Listing, DisplayListingViewModel>(listing);
+        }
+
+        public async Task<List<DisplayListingViewModel>> GetListingsByCategoryId(int categoryId)
+        {
+            var childCategoryIds = await this._context.Categories
+                .Where(c => c.ParentId == categoryId)
+                .Select(c => c.Id)
+                .ToListAsync();
+
+            childCategoryIds.Add(categoryId);
+
+            var listings = await this._context.Listings
+                .Where(l => childCategoryIds.Contains(l.CategoryId))
+                .Include(l => l.Options)
+                .Include(l => l.Images)
+                .Include(c => c.Category)
+                .ThenInclude(c => c.Parent)
+                .ToListAsync();
+
+            return this._mappingService.Map<List<Listing>, List<DisplayListingViewModel>>(listings);
+        }
+
+        public async Task<Listing> GetListing(int id)
+        {
+            return await this._context.Listings.Where(l => l.Id == id).Include(l => l.Images).Include(l => l.ListingOptions)
+                .ThenInclude(lo => lo.Option).ThenInclude(o => o.Property).FirstOrDefaultAsync();
         }
     }
 }

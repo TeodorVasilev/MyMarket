@@ -6,6 +6,7 @@ namespace MyMarket.Service.ListingService
 {
     public interface IListingService
     {
+        Task<List<DisplayListingViewModel>> GetListingsByCategoryId(int categoryId);
         Task<List<DisplayListingViewModel>> GetListingViewModels();
         Task<DisplayListingViewModel> GetListingViewModel(int id);
         Task<List<string>> SaveImages(IFormFileCollection images);

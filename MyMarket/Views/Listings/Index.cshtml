@@ -1,21 +1,9 @@
-﻿@using MyMarket.DAL.ViewModels.Pages.Home
-@model HomeViewModel
+﻿@using MyMarket.DAL.ViewModels.Listings
+@model List<DisplayListingViewModel>
 
-<div class="container">
-    <div class="row border">
-        @foreach (var category in @Model.Categories.Where(c => c.ParentId == 0))
-        {
-            <div class="col-md-3 col-3 main-category p-1">
-                <a asp-action="index" asp-controller="listings" asp-route-categoryId="@category.Id" class="text-center text-decoration-none">
-                    <div>@category.Name</div>
-                </a>
-            </div>
-        }
-    </div>
-</div>
 <div class="container p-0">
     <div class="row mt-3 g-3">
-        @foreach (var listing in @Model.Listings)
+        @foreach (var listing in @Model)
         {
             <div class="col-md-2">
                 <a asp-action="listing" asp-controller="listings" asp-route-id="@listing.Id" class="text-decoration-none listing">
@@ -39,28 +27,6 @@
                     </a>
                     <p class="card-text">@listing.Price<span>$</span></p>
                 </div>
-            </div>
-        }
-    </div>
-</div>
-</div>
-<div class="lightblue">
-    <div class="row">
-        @for (int i = 1; i <= Model.Categories.Count / 3; i++)
-        {
-            var parentCategories = Model.Categories.Where(c => c.ParentId == 0).Skip((i - 1) * 3).Take(3);
-
-            <div class="col-3">
-                <ul class="categories-list">
-                    @foreach (var parentCat in parentCategories)
-                    {
-                        <li class="parent-category"><a asp-action="index" asp-controller="listings" asp-route-categoryId="@parentCat.Id">@parentCat.Name</a></li>
-                        @foreach (var child in parentCat.Children)
-                        {
-                            <li class="child-category"><a asp-action="index" asp-controller="listings" asp-route-categoryId="@child.Id">@child.Name</a></li>
-                        }
-                    }
-                </ul>
             </div>
         }
     </div>

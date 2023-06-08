@@ -12,12 +12,13 @@ namespace MyMarket.Controllers
             this._listingService = listingService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int categoryId = 0)
         {
-            return View();
+            var model = await this._listingService.GetListingsByCategoryId(categoryId);
+            return View(model);
         }
 
-        public IActionResult Create() 
+        public IActionResult Create()
         {
             return View();
         }
@@ -29,9 +30,8 @@ namespace MyMarket.Controllers
         }
 
         public async Task<IActionResult> Listing(int id)
-        {   
-            var model = await this._listingService.GetListingViewModel(id);
-            return View(model);
+        {
+            return View(await this._listingService.GetListingViewModel(id));
         }
     }
 }
